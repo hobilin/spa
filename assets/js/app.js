@@ -48,6 +48,12 @@
         $("#logIn").hide();
        $("#register").hide();
        $("#logOut").show();
+       var user = firebase.auth().currentUser;
+user.sendEmailVerification().then(function() {
+  console.log("email sent");
+}).catch(function(error) {
+  console.log("email not sent: " + error);
+});
         console.log("usario ingresado")
         // User is signed in.
       } else {
@@ -61,12 +67,12 @@
 
 
 
+
    $("#logOut").click(function() {
      firebase.auth().signOut().then(function() {
        $("#logIn").show();
        $("#register").show();
-       $("#logOut").hide();
-
+       $("#logOut").css('display', 'none');
      });
      firebase.auth().signOut().catch(function(error) {
    console.log("error");
@@ -87,30 +93,28 @@ function validateEmail($email) {
   return emailReg.test( $email );
 }
 
+var arrImg = [];
 
-//TRABAJANDO CON LA API
-fetch(`https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae`)
-.then(response => response.json())
-.then(data => {
-  console.log(data);
-  var records = data.records;
-  
-  for (var i in records) {
-    var title = records[i].title;
-    var pieceId = records[i].objectid;
-    var image = records[i].images[i].baseimageurl;
-    console.log(title);
-    $('.artistContainer').append(`<div class="item"><p>${title}<p><img class="image" src="${image}"></div>`);
-    // $('.artistContainer').append(`<img src="${data.records[0].images[0].baseimageurl}">`);
+function success(data){
+  let records = data.records;
+    records.forEach( el => {
+      var title = el.title;
+      var image = el.primaryimageurl;
+      var department = el.department;
+    console.log(el);
+    $('.artistContainer').append(`<div class="item"><p>${title}<p><img class="image" src="${image}"><p>${department}<p></div>`);
+        
+    })
+     
+}; 
 
-    fetch(`https://api.harvardartmuseums.org/object/${pieceId}?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae`)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
-      $('.item').append(`<p>${data.department}<p>`);
-    });
-  }  
+for(var f = 0; f < 10; f++){
+  $.ajax({
+  url : `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
+  type: 'GET',
+  success: success
 });
+}
 
 /*
 
