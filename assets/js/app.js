@@ -124,7 +124,8 @@ function success(data){
       var objectId = el.objectid;
 
     if(image !== null && image !== undefined){
-      $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}"><img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p><p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text"><i class="fa fa-bookmark-o fa-7x"></i><i class="fa fa-heart-o fa-20x"></i></p></div></div></div>`);
+
+      $('.artistContainer').append(`<div class="item thumbnail" data-toggle="modal" data-target="#modal-item" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}"><img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p><p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text"><i class="fa fa-bookmark-o fa-7x"></i><i class="fa fa-heart-o fa-20x"></i></p></div></div></div>`);
     }
 
 //FILTRO BUSQUEDA
