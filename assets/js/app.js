@@ -1,9 +1,14 @@
 
+  $(document).ready(function() {
+    
+    //escondiendo botón log out antes de que esté registrado
+  })
+
     // Cuando se cliqueen los botones en registro
       $("#register-btn").click(function(e) {
         e.preventDefault();
-        var emailReg = $("#emailReg").val();
-        var passReg = $("#passReg").val();
+        var emailReg = $(".inputEmailReg").val();
+        var passReg = $(".inputPassReg").val();
 
         console.log(emailReg);
         console.log(passReg);
@@ -24,8 +29,8 @@
 
   $("#log-btn").click(function ingresar(e) {
     e.preventDefault();
-    var emailLog = $("#emailLog").val();
-    var passLog = $("#passLog").val();
+    var emailLog = $(".inputEmailLog").val();
+    var passLog = $(".inputPassLog").val();
 
 
 
@@ -42,7 +47,9 @@
   function observardor() {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-
+        $("#logIn").hide();
+       $("#register").hide();
+       
         console.log("usario ingresado")
         // User is signed in.
       } else {
@@ -59,8 +66,8 @@
    $("#logOut").click(function() {
      firebase.auth().signOut().then(function() {
        $("#logIn").show();
-       $("#signUp").show();
-       $("#userAvatar").hide();
+       $("#register").show();
+       $("#logOut").hide();
 
      });
      firebase.auth().signOut().catch(function(error) {
@@ -71,9 +78,6 @@
 
 
 
-// validando registro
-$('#login-form').validator();
-$('#validator-form').validator();
 
 
   // VALIDADOR (cierra el modal al validar)
@@ -104,6 +108,7 @@ fetch(`https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-
 });
 });
 
+//función para guardar cosas, hay que arreglarlo al tema de esto 
 
         $(".js-saveMovie").click(function() {
            $(this).addClass('saveBtn');
