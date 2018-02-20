@@ -107,17 +107,22 @@ function success(data){
       var technique = el.technique;
       var people = el.people[0].displayname;
       var date = el.dated;
-      var whatToSearch = el.people[0].displayname;
-    console.log(el);
+      var idPeople = el.people[0].displayname;
+      var idTitle = el.title;
+      var idPeriod = el.period;
+      var idTechnique = el.technique;
+      var objectId = el.objectid;
+
     if(image !== null && image !== undefined){
-      $('.artistContainer').append(`<div class="item" db-id="${whatToSearch}"><p>${people}<p><p>${date}<p><p>${title}<p><img class="image" src="${image}"><p>${period}<p><p>${technique}<p></div>`);
+      $('.artistContainer').append(`<div class="item" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}"><p>${people}<p><p>${date}<p><p>${title}<p><img class="image" src="${image}"><p>${period}<p><p>${technique}<p></div>`);
     }
-              $('#inputSearch').keyup(function() {
+
+      $('#inputSearch').keyup(function() {
       var find = $(this).val();
       $('.item').hide();
 
       $('.item').each(function() {
-        var search = $(this).attr('db-id');
+        var search = $(this).attr('people-id');
         if (search.indexOf(find) != -1) {
           $(this).show();
         }
@@ -125,24 +130,71 @@ function success(data){
     });
 
     $('.typeSearch').click(function() {
-      $(this).attr('placeholder', 'Search By Title');
       $(this).css('background-color', '#000');
       $(this).css('color', '#fff');
+      $(this).siblings().css( "background-color", "#fff" );
+      $(this).siblings().css( "color", "#000" );
+
       if($(this).attr('value') === 'title'){
-      $(this).attr('db-id', el.title);
-      console.log($(this));
-      $('.typeSearch').keyup(function() {
+        $('#inputSearch').attr('placeholder', 'Search By Title');
+        $('#inputSearch').keyup(function() {
       var find = $(this).val();
       $('.item').hide();
 
       $('.item').each(function() {
-        var search = $(this).attr('db-id');
+        var search = $(this).attr('title-id');
         if (search.indexOf(find) != -1) {
           $(this).show();
         }
       });
     });
     }
+
+    if($(this).attr('value') === 'period'){
+      $('#inputSearch').attr('placeholder', 'Search By Period');
+      $('#inputSearch').keyup(function() {
+      var find = $(this).val();
+      $('.item').hide();
+
+      $('.item').each(function() {
+        var search = $(this).attr('period-id');
+        if (search.indexOf(find) != -1) {
+          $(this).show();
+        }
+      });
+    });
+    }
+
+        if($(this).attr('value') === 'technique'){
+      $('#inputSearch').attr('placeholder', 'Search By Technique');
+      $('#inputSearch').keyup(function() {
+      var find = $(this).val();
+      $('.item').hide();
+
+      $('.item').each(function() {
+        var search = $(this).attr('technique-id');
+        if (search.indexOf(find) != -1) {
+          $(this).show();
+        }
+      });
+    });
+    }
+      if($(this).attr('value') === 'artist'){
+      $('#inputSearch').attr('placeholder', 'Search By Artist');
+      $('#inputSearch').keyup(function() {
+      var find = $(this).val();
+      $('.item').hide();
+
+      $('.item').each(function() {
+        var search = $(this).attr('people-id');
+        if (search.indexOf(find) != -1) {
+          $(this).show();
+        }
+      });
+    });
+    }
+
+
     })
 
 
@@ -151,16 +203,16 @@ function success(data){
      
 }; 
 
-var countPage= 0;
 $('#showMore').click(function(){
   console.log("entrando")
-countPage++
-  for(var f = 0; f < countPage; f++){
+var f = 10;
+  for(var f; f < 20; f++){
   $.ajax({
   url : `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
   type: 'GET',
   success: success
 });
+
 }
 
 
@@ -212,7 +264,7 @@ $(".js-saveMovie").click(function() {
     var currentUser = users.child(firebase.auth().currentUser.uid);
     var saved = currentUser.child("saved"); //#userName.val() del form de registro
     var data = {
-      poster:  response.poster_path,
+      poster: response.poster_path,
       title: response.original_title,
       year: response.release_date,
       genre: response.genres[i].name
