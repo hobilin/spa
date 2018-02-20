@@ -12,6 +12,10 @@ section{
   border-bottom: 1px solid ;
 }
 
+.searchBar input:focus{
+  outline: none;
+}
+
 input::placeholder{
   text-align: right;
   padding: 1em;

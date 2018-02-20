@@ -1,4 +1,5 @@
 
+
     // Cuando se cliqueen los botones en registro
       $("#register-btn").click(function(e) {
         e.preventDefault();
@@ -92,20 +93,26 @@ fetch(`https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-
 .then(response => response.json())
 .then(data => {
   console.log(data);
-  $('.artistContainer').append(`<div class="item"><p>${data.records[0].title}<p><img class="image" src="${data.records[0].images[0].baseimageurl}"></div>`);
-  // $('.artistContainer').append(`<img src="${data.records[0].images[0].baseimageurl}">`);
+  var records = data.records;
+  
+  for (var i in records) {
+    var title = records[i].title;
+    var pieceId = records[i].objectid;
+    var image = records[i].images[i].baseimageurl;
+    console.log(title);
+    $('.artistContainer').append(`<div class="item"><p>${title}<p><img class="image" src="${image}"></div>`);
+    // $('.artistContainer').append(`<img src="${data.records[0].images[0].baseimageurl}">`);
 
-  var pieceId = data.records[0].objectid;
-
-  fetch(`https://api.harvardartmuseums.org/object/${pieceId}?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae`)
-  .then(response => response.json())
-  .then(data => {
-    console.log(data);
-    $('.item').append(`<p>${data.department}<p>`);
-  });
+    fetch(`https://api.harvardartmuseums.org/object/${pieceId}?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae`)
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      $('.item').append(`<p>${data.department}<p>`);
+    });
+  }  
 });
 
-
+/*
 
 //función para guardar cosas, hay que arreglarlo al tema de esto 
 $(".js-saveMovie").click(function() {
@@ -119,7 +126,7 @@ $(".js-saveMovie").click(function() {
   /**
   * funcion para obtener data de la pelicula
   */
-  var settings = {
+/*  var settings = {
     "async": true,
     "crossDomain": true,
     "url": "https://api.themoviedb.org/3/movie/" + idPelicula + "?language=es-US&api_key=ca7d88c98023c60da7dcd04d4840b222",
@@ -150,4 +157,4 @@ $(".js-saveMovie").click(function() {
     saved.on('value', gotDataSave(), errDataSave());
 
   });
-});
+});*/
