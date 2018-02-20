@@ -1,4 +1,5 @@
 
+
   $(document).ready(function() {
     
     //escondiendo botón log out antes de que esté registrado
@@ -43,6 +44,8 @@
     });
   });
 
+
+
   // ver si hay usuario activo
   function observardor() {
     firebase.auth().onAuthStateChanged(function(user) {
@@ -78,78 +81,78 @@
 
 
 
-
-
-  // VALIDADOR (cierra el modal al validar)
-  $('.modal').on('shown.bs.modal', function () {
-$(this).find('form').validator('destroy').validator()})
+// VALIDADOR (cierra el modal al validar)
+$('.modal').on('shown.bs.modal', function () {
+  $(this).find('form').validator('destroy').validator()
+})
 
 // email validation
 function validateEmail($email) {
-var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-return emailReg.test( $email );
+  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+  return emailReg.test( $email );
 }
 
 
 fetch(`https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae`)
- .then(response => response.json())
- .then(data => {
+.then(response => response.json())
+.then(data => {
   console.log(data);
-  $('.img').append(`<p>${data.records[0].title}<p>`);
-  $('.img').append(`<img src="${data.records[0].images[0].baseimageurl}">`);
+  $('.artistContainer').append(`<div class="item"><p>${data.records[0].title}<p><img class="image" src="${data.records[0].images[0].baseimageurl}"></div>`);
+  // $('.artistContainer').append(`<img src="${data.records[0].images[0].baseimageurl}">`);
 
   var pieceId = data.records[0].objectid;
 
   fetch(`https://api.harvardartmuseums.org/object/${pieceId}?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae`)
- .then(response => response.json())
- .then(data => {
-  console.log(data);
-  $('.img').append(`<p>${data.department}<p>`);
+  .then(response => response.json())
+  .then(data => {
+    console.log(data);
+    $('.item').append(`<p>${data.department}<p>`);
+  });
 });
-});
+
+
 
 //función para guardar cosas, hay que arreglarlo al tema de esto 
+$(".js-saveMovie").click(function() {
+  $(this).addClass('saveBtn');
+  // ahora obtendremos el id de la pelicula a la cual se le dio click
+  var idPelicula = $(this).attr("db-id");
+  $(".js-contSerieAll").empty();
+  $(".js-contSearchvieAll").empty();
+  // ahora obtendremos el id de la pelicula a la cual se le dio click
+  var idPelicula = $(this).attr("db-id");
+  /**
+  * funcion para obtener data de la pelicula
+  */
+  var settings = {
+    "async": true,
+    "crossDomain": true,
+    "url": "https://api.themoviedb.org/3/movie/" + idPelicula + "?language=es-US&api_key=ca7d88c98023c60da7dcd04d4840b222",
+    "method": "GET",
+    "headers": {},
+    "data": "{}"
+  }
 
-        $(".js-saveMovie").click(function() {
-           $(this).addClass('saveBtn');
-                // ahora obtendremos el id de la pelicula a la cual se le dio click
-                var idPelicula = $(this).attr("db-id");
-                $(".js-contSerieAll").empty();
-                $(".js-contSearchvieAll").empty();
-                // ahora obtendremos el id de la pelicula a la cual se le dio click
-                var idPelicula = $(this).attr("db-id");
-                /**
-              * funcion para obtener data de la pelicula
-              */
-                var settings = {
-                  "async": true,
-                  "crossDomain": true,
-                  "url": "https://api.themoviedb.org/3/movie/" + idPelicula + "?language=es-US&api_key=ca7d88c98023c60da7dcd04d4840b222",
-                  "method": "GET",
-                  "headers": {},
-                  "data": "{}"
-                }
-                $.ajax(settings).done(function (response) {
-                  var arrayGender = [];
-                  console.log(response.genres);
-                  for (var i in response.genres) {
-                    console.log(response.genres[i].name);
-                    arrayGender.push(response.genres[i].name);
-                  }
+  $.ajax(settings).done(function (response) {
+    var arrayGender = [];
+    console.log(response.genres);
+    for (var i in response.genres) {
+      console.log(response.genres[i].name);
+      arrayGender.push(response.genres[i].name);
+    }
 
-                  var database = firebase.database();
-                        var users = database.ref().child('users');
-                        var currentUser = users.child(firebase.auth().currentUser.uid);
-                        var saved = currentUser.child("saved"); //#userName.val() del form de registro
+    var database = firebase.database();
+    var users = database.ref().child('users');
+    var currentUser = users.child(firebase.auth().currentUser.uid);
+    var saved = currentUser.child("saved"); //#userName.val() del form de registro
+    var data = {
+      poster:  response.poster_path,
+      title: response.original_title,
+      year: response.release_date,
+      genre: response.genres[i].name
+    }
+    saved.push(data);
+    saved.on('value', gotDataSave(), errDataSave());
 
-                    var data = {
-                      poster:  response.poster_path,
-                      title: response.original_title,
-                      year: response.release_date,
-                      genre: response.genres[i].name
-                    }
-                    saved.push(data);
-                    saved.on('value', gotDataSave(), errDataSave());
-
-                });
-              });
+  });
+});
