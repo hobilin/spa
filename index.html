@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-        <title>Art Gallery</title>
-        <link rel="stylesheet" href="assets/Bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/css/style.css">
-<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyAW3mEXG8prnxyoMxq7MVtQ5fGWVucF5GU",
-    authDomain: "artmuseum-7f114.firebaseapp.com",
-    databaseURL: "https://artmuseum-7f114.firebaseio.com",
-    projectId: "artmuseum-7f114",
-    storageBucket: "artmuseum-7f114.appspot.com",
-    messagingSenderId: "220568740773"
-  };
-  firebase.initializeApp(config);
-</script>
-  </head>
-  <body>
-    <header>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>Art Gallery</title>
+  <link rel="stylesheet" href="assets/Bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/font-awesome-4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyAW3mEXG8prnxyoMxq7MVtQ5fGWVucF5GU",
+      authDomain: "artmuseum-7f114.firebaseapp.com",
+      databaseURL: "https://artmuseum-7f114.firebaseio.com",
+      projectId: "artmuseum-7f114",
+      storageBucket: "artmuseum-7f114.appspot.com",
+      messagingSenderId: "220568740773"
+    };
+    firebase.initializeApp(config);
+  </script>
+</head>
+<body>
+    <header class="menu">
       <nav class="navbar navbar-default navbar-fixed-top  navbar-inverse">
         <div class="container">
           <div class="navbar-header brand">
@@ -43,7 +44,8 @@
         </div>
       </nav>    
     </header>
-    <section>
+    <section class="preload"></section>
+    <section class="results">
       <div class="container searchBar">
         <div class="row">
           <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-8">
@@ -63,12 +65,17 @@
           <div class="col-md-12 artistContainer">
             <!-- Agregar contenido de API en elemento con clase item -->
           </div>
-        </div>
+        </div>        
+      </div>
+      <div class="container-fluid">
         <div class="row">
-            <button id="showMore">Show more...</button>
+          <div class="text-center footer">
+            <p>Art Gallery© 2017 Copyright</p>
+          </div>
         </div>
       </div>      
     </section>
+
   <!-- Modal de Registro -->
     <div id="modalRegister" class="modal fade" role="dialog">
       <div class="modal-dialog">
@@ -150,7 +157,7 @@
       </div>
     </div>
   </div>
-
+  
 <!--script-->
 <script src="assets/JQuery/jquery-3.2.1.min.js"></script>
 <script src="assets/Bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>

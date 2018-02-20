@@ -1,5 +1,15 @@
 $(document).ready(function() {
-  
+  var preload = $('.preload').append(`<figure><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></figure>`)
+  preload.show();
+  splash(6500);
+  $('.menu, .results').hide();
+  //funcion pagina splash
+  function splash(time){
+    setTimeout(function(){
+    $('.preload').fadeOut(); 
+    }, time);
+    $('.menu, .results').delay(6500).fadeIn();
+  }
 })
 
 
@@ -110,7 +120,7 @@ function success(data){
       var whatToSearch = el.people[0].displayname;
     console.log(el);
     if(image !== null && image !== undefined){
-      $('.artistContainer').append(`<div class="item" db-id="${whatToSearch}"><p>${people}<p><p>${date}<p><p>${title}<p><img class="image" src="${image}"><p>${period}<p><p>${technique}<p></div>`);
+      $('.artistContainer').append(`<div class="item thumbnail" db-id="${whatToSearch}"><img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p><p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text"><i class="fa fa-bookmark-o fa-7x"></i><i class="fa fa-heart-o fa-20x"></i></p></div></div></div>`);
     }
               $('#inputSearch').keyup(function() {
       var find = $(this).val();
@@ -154,7 +164,7 @@ function success(data){
 var countPage= 0;
 $('#showMore').click(function(){
   console.log("entrando")
-countPage++
+
   for(var f = 0; f < countPage; f++){
   $.ajax({
   url : `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
@@ -174,6 +184,8 @@ for(var f = 0; f < 10; f++){
   success: success
 });
 }
+
+// Loader funcion
 
 
 /*
