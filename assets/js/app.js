@@ -1,3 +1,6 @@
+$(document).ready(function() {
+  
+})
 
 
     // Cuando se cliqueen los botones en registro
@@ -93,20 +96,76 @@ function validateEmail($email) {
   return emailReg.test( $email );
 }
 
-var arrImg = [];
+
 
 function success(data){
   let records = data.records;
     records.forEach( el => {
       var title = el.title;
       var image = el.primaryimageurl;
-      var department = el.department;
+      var period = el.period;
+      var technique = el.technique;
+      var people = el.people[0].displayname;
+      var date = el.dated;
+      var whatToSearch = el.people[0].displayname;
     console.log(el);
-    $('.artistContainer').append(`<div class="item"><p>${title}<p><img class="image" src="${image}"><p>${department}<p></div>`);
-        
+    if(image !== null && image !== undefined){
+      $('.artistContainer').append(`<div class="item" db-id="${whatToSearch}"><p>${people}<p><p>${date}<p><p>${title}<p><img class="image" src="${image}"><p>${period}<p><p>${technique}<p></div>`);
+    }
+              $('#inputSearch').keyup(function() {
+      var find = $(this).val();
+      $('.item').hide();
+
+      $('.item').each(function() {
+        var search = $(this).attr('db-id');
+        if (search.indexOf(find) != -1) {
+          $(this).show();
+        }
+      });
+    });
+
+    $('.typeSearch').click(function() {
+      $(this).attr('placeholder', 'Search By Title');
+      $(this).css('background-color', '#000');
+      $(this).css('color', '#fff');
+      if($(this).attr('value') === 'title'){
+      $(this).attr('db-id', el.title);
+      console.log($(this));
+      $('.typeSearch').keyup(function() {
+      var find = $(this).val();
+      $('.item').hide();
+
+      $('.item').each(function() {
+        var search = $(this).attr('db-id');
+        if (search.indexOf(find) != -1) {
+          $(this).show();
+        }
+      });
+    });
+    }
+    })
+
+
+
     })
      
 }; 
+
+var countPage= 0;
+$('#showMore').click(function(){
+  console.log("entrando")
+countPage++
+  for(var f = 0; f < countPage; f++){
+  $.ajax({
+  url : `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
+  type: 'GET',
+  success: success
+});
+}
+
+
+});
+
 
 for(var f = 0; f < 10; f++){
   $.ajax({
@@ -115,6 +174,7 @@ for(var f = 0; f < 10; f++){
   success: success
 });
 }
+
 
 /*
 

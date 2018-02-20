@@ -47,13 +47,13 @@
       <div class="container searchBar">
         <div class="row">
           <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-8">
-            <input type="text" placeholder="Search">
+            <input id="inputSearch" type="text" placeholder="Search By Artist">
           </div>
           <div class="row">
             <div class="col-md-3 col-md-offset-9">
-              <button class="btn typeSearch" value="person">Artist</button>
-              <button class="btn typeSearch" value="period">Period</button>
-              <button class="btn typeSearch" value="technique">Technique</button>
+              <button id="title" class="btn typeSearch" value="title">Title</button>
+              <button id="period" class="btn typeSearch" value="period">Period</button>
+              <button id="technique" class="btn typeSearch" value="technique">Technique</button>
             </div>
           </div>
         </div>        
@@ -63,6 +63,9 @@
           <div class="col-md-12 artistContainer">
             <!-- Agregar contenido de API en elemento con clase item -->
           </div>
+        </div>
+        <div class="row">
+            <button id="showMore">Show more...</button>
         </div>
       </div>      
     </section>
