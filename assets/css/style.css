@@ -1,0 +1,53 @@
+section{
+  height: 100vh;
+}
+
+.searchBar{
+  margin-top: 15vh;
+}
+
+.searchBar input{
+  width: 100%;
+  border: none;  
+  border-bottom: 1px solid ;
+}
+
+input::placeholder{
+  text-align: right;
+  padding: 1em;
+}
+
+.artistContainer {
+  -moz-column-width: 18em;
+  -webkit-column-width: 18em;
+  column-width: 18em;
+  -moz-column-gap: 1em;
+  -webkit-column-gap:1em;
+  column-gap: 1em;
+  margin: 5px;
+  margin-top: 10vh;
+}
+
+/*.searchBar{
+  position: fixed;
+}*/
+
+.typeSearch{
+  border-radius: 2em;
+  margin: 2em 0.5em 2em 0.5em;
+  background-color: transparent;
+  border: 1px solid #6E6E6E;
+}
+.typeSearch:hover{
+  background-color: #000000;
+  color: #FFF;
+}
+
+.item {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  padding: 5px;
+  margin: 5px;
+  border: 1px solid black;
+}
