@@ -17,21 +17,6 @@ input::placeholder{
   padding: 1em;
 }
 
-.artistContainer {
-  -moz-column-width: 18em;
-  -webkit-column-width: 18em;
-  column-width: 18em;
-  -moz-column-gap: 1em;
-  -webkit-column-gap:1em;
-  column-gap: 1em;
-  margin: 5px;
-  margin-top: 10vh;
-}
-
-/*.searchBar{
-  position: fixed;
-}*/
-
 .typeSearch{
   border-radius: 2em;
   margin: 2em 0.5em 2em 0.5em;
@@ -43,6 +28,17 @@ input::placeholder{
   color: #FFF;
 }
 
+.artistContainer {
+  -moz-column-width: 18em;
+  -webkit-column-width: 18em;
+  column-width: 18em;
+  -moz-column-gap: 1em;
+  -webkit-column-gap:1em;
+  column-gap: 1em;
+  margin: 5px;
+  margin-top: 10vh;
+}
+
 .item {
   display: inline-block;
   width: 100%;
@@ -50,4 +46,8 @@ input::placeholder{
   padding: 5px;
   margin: 5px;
   border: 1px solid black;
+}
+
+.image{
+  width: 100%;
 }
