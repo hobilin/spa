@@ -1,5 +1,15 @@
 $(document).ready(function() {
-  
+  var preload = $('.preload').append(`<figure><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></figure>`)
+  preload.show();
+  splash(6500);
+  $('.menu, .results').hide();
+  //funcion pagina splash
+  function splash(time){
+    setTimeout(function(){
+    $('.preload').fadeOut(); 
+    }, time);
+    $('.menu, .results').delay(6500).fadeIn();
+  }
 })
 
 
@@ -114,9 +124,10 @@ function success(data){
       var objectId = el.objectid;
 
     if(image !== null && image !== undefined){
-      $('.artistContainer').append(`<div class="item" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}"><p>${people}<p><p>${date}<p><p>${title}<p><img class="image" src="${image}"><p>${period}<p><p>${technique}<p></div>`);
+      $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}"><img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p><p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text"><i class="fa fa-bookmark-o fa-7x"></i><i class="fa fa-heart-o fa-20x"></i></p></div></div></div>`);
     }
 
+//FILTRO BUSQUEDA
       $('#inputSearch').keyup(function() {
       var find = $(this).val();
       $('.item').hide();
@@ -193,20 +204,14 @@ function success(data){
       });
     });
     }
-
-
     })
-
-
-
-    })
-     
+//FIN FILTRO BUSQUEDA
+    })   
 }; 
 
 $('#showMore').click(function(){
   console.log("entrando")
-var f = 10;
-  for(var f; f < 20; f++){
+  for(var f = 0; f < countPage; f++){
   $.ajax({
   url : `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
   type: 'GET',
@@ -226,6 +231,8 @@ for(var f = 0; f < 10; f++){
   success: success
 });
 }
+
+// Loader funcion
 
 
 /*
