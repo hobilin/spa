@@ -1,10 +1,4 @@
 
-
-  $(document).ready(function() {
-    
-    //escondiendo botón log out antes de que esté registrado
-  })
-
     // Cuando se cliqueen los botones en registro
       $("#register-btn").click(function(e) {
         e.preventDefault();
@@ -52,7 +46,7 @@
       if (user) {
         $("#logIn").hide();
        $("#register").hide();
-       
+       $("#logOut").show();
         console.log("usario ingresado")
         // User is signed in.
       } else {
@@ -93,6 +87,7 @@ function validateEmail($email) {
 }
 
 
+//TRABAJANDO CON LA API
 fetch(`https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae`)
 .then(response => response.json())
 .then(data => {
