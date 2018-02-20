@@ -1,64 +1,85 @@
-// Cuando se cliqueen los botones en registro
-$("#register-btn").click(function(e) {
-  e.preventDefault();
-  var emailReg = $("#emailReg").val();
-  var passReg = $("#passReg").val();
 
-  console.log(emailReg);
-  console.log(passReg);
-  console.log("registrado");
-  firebase.auth().createUserWithEmailAndPassword(emailReg, passReg).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorCode);
-    console.log(errorCode);
-  });
-});
 
-// FIREBASE
-$("#log-btn").click(function ingresar(e) {
-  e.preventDefault();
-  var emailLog = $("#emailLog").val();
-  var passLog = $("#passLog").val();
-  firebase.auth().signInWithEmailAndPassword(emailLog, passLog).catch(function(error) {
-    // Handle Errors here.
-    var errorCode = error.code;
-    var errorMessage = error.message;
-    console.log(errorCode);
-    console.log(errorCode);
-  });
-});
-
-// ver si hay usuario activo
-function observardor() {
-  firebase.auth().onAuthStateChanged(function(user) {
-    if (user) {
-      console.log("usario ingresado")
-      // User is signed in.
-    } else {
-      console.log("no existe usuario activo")
-    // User is signed out.
-    // ...
-    }
-  });
-};
-observardor();
-
-$("#logOut").click(function() {
-  firebase.auth().signOut().then(function() {
-    $("#logIn").show();
-    $("#signUp").show();
-    $("#userAvatar").hide();
-  });
-  firebase.auth().signOut().catch(function(error) {
-    console.log("error");
+  $(document).ready(function() {
+    
+    //escondiendo botón log out antes de que esté registrado
   })
-});
 
-// validando registro
-$('#login-form').validator();
-$('#validator-form').validator();
+    // Cuando se cliqueen los botones en registro
+      $("#register-btn").click(function(e) {
+        e.preventDefault();
+        var emailReg = $(".inputEmailReg").val();
+        var passReg = $(".inputPassReg").val();
+
+        console.log(emailReg);
+        console.log(passReg);
+        console.log("registrado");
+        firebase.auth().createUserWithEmailAndPassword(emailReg, passReg).catch(function(error) {
+          // Handle Errors here.
+          var errorCode = error.code;
+          var errorMessage = error.message;
+          console.log(errorCode);
+          console.log(errorCode);
+        });
+
+              });
+
+
+  // FIREBASE
+
+
+  $("#log-btn").click(function ingresar(e) {
+    e.preventDefault();
+    var emailLog = $(".inputEmailLog").val();
+    var passLog = $(".inputPassLog").val();
+
+
+
+    firebase.auth().signInWithEmailAndPassword(emailLog, passLog).catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      console.log(errorCode);
+      console.log(errorCode);
+    });
+  });
+
+
+
+  // ver si hay usuario activo
+  function observardor() {
+    firebase.auth().onAuthStateChanged(function(user) {
+      if (user) {
+        $("#logIn").hide();
+       $("#register").hide();
+       
+        console.log("usario ingresado")
+        // User is signed in.
+      } else {
+        console.log("no existe usuario activo")
+        // User is signed out.
+        // ...
+      }
+    });
+  };
+   observardor();
+
+
+
+   $("#logOut").click(function() {
+     firebase.auth().signOut().then(function() {
+       $("#logIn").show();
+       $("#register").show();
+       $("#logOut").hide();
+
+     });
+     firebase.auth().signOut().catch(function(error) {
+   console.log("error");
+     })
+   });
+
+
+
 
 // VALIDADOR (cierra el modal al validar)
 $('.modal').on('shown.bs.modal', function () {
@@ -89,6 +110,9 @@ fetch(`https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-
   });
 });
 
+
+
+//función para guardar cosas, hay que arreglarlo al tema de esto 
 $(".js-saveMovie").click(function() {
   $(this).addClass('saveBtn');
   // ahora obtendremos el id de la pelicula a la cual se le dio click

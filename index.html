@@ -1,30 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://use.fontawesome.com/09de17d4d7.js"></script>
-    <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,600i,700,800" rel="stylesheet">
-    <title>SPA ArtGallery</title>
-    <script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <script>
-      // Initialize Firebase
-      var config = {
-        apiKey: "AIzaSyAW3mEXG8prnxyoMxq7MVtQ5fGWVucF5GU",
-        authDomain: "artmuseum-7f114.firebaseapp.com",
-        databaseURL: "https://artmuseum-7f114.firebaseio.com",
-        projectId: "artmuseum-7f114",
-        storageBucket: "artmuseum-7f114.appspot.com",
-        messagingSenderId: "220568740773"
-      };
-      firebase.initializeApp(config);
-    </script>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+        <title>Art Gallery</title>
+        <link rel="stylesheet" href="assets/Bootstrap/bootstrap-3.3.7-dist/css/bootstrap.min.css">
+<script src="https://www.gstatic.com/firebasejs/4.10.0/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyAW3mEXG8prnxyoMxq7MVtQ5fGWVucF5GU",
+    authDomain: "artmuseum-7f114.firebaseapp.com",
+    databaseURL: "https://artmuseum-7f114.firebaseio.com",
+    projectId: "artmuseum-7f114",
+    storageBucket: "artmuseum-7f114.appspot.com",
+    messagingSenderId: "220568740773"
+  };
+  firebase.initializeApp(config);
+</script>
   </head>
   <body>
     <header>
@@ -41,8 +34,9 @@
           </div>
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
             <ul class="nav navbar-nav navbar-right">
-              <li class=""><a class="" href="#" data-toggle="modal" data-target="#modalLog" role="button">Log In</a></li>
-              <li><a class="" href="#" data-toggle="modal" data-target="#modalRegister" role="button">Register</a></li>
+              <li class=""><a id="logIn" href="#" data-toggle="modal" data-target="#modalLog" role="button">Log In</a></li>
+              <li><a id="register" href="#" data-toggle="modal" data-target="#modalRegister" role="button">Register</a></li>
+              <li><button id="logOut">Log Out</button></li>
             </ul>
           </div>
         </div>
@@ -64,8 +58,7 @@
         </div>        
       </div>
       <div class="container">
-        <div class="row text-center">
-          <h1>Aqui va el nombre del artista, el periodo o la técnica que se buscó</h1>
+        <div class="row">
           <div class="col-md-12 artistContainer">
             <!-- Agregar contenido de API en elemento con clase item -->
           </div>
@@ -73,6 +66,7 @@
       </div>      
     </section>
   <!-- Modal de Registro -->
+    <a class="" href="#" data-toggle="modal" data-target="#modalLog" role="button">Log In</a>
     <div id="modalRegister" class="modal fade" role="dialog">
       <div class="modal-dialog">
       <!-- Modal content-->
@@ -83,36 +77,30 @@
           </div>
           <div class="modal-body">
             <div style="padding: 20px;" id="form-olvidado">
-              <form accept-charset="UTF-8" role="form" id="register-form" method="post">
-                <p class="text-center">
-                  <a class="btn btn-primary social-login-btn social-google" href="/auth/google">
-                    <i class="fa fa-google-plus"></i>
-                  </a>
-                </p>
-                <fieldset>
-                  <div class="form-group input-group">
-                    <span class="input-group-addon btn-input">
-                      <i class="glyphicon glyphicon-user"></i>
-                    </span>
-                    <input class="form-control" id="emailReg" placeholder="E-mail" name="e-mail" type="e-mail" required="" autofocus="">
-                  </div>
-                <div class="form-group input-group">
-                  <span class="input-group-addon btn-input">
-                    <i class="glyphicon glyphicon-lock"></i>
-                  </span>
-                  <input class="form-control" id="passReg" placeholder="Password" name="password" type="password" value="" required="">
-                </div>
-                <div class="form-group input-group">
-                  <span class="input-group-addon btn-input">
-                    <i class="glyphicon glyphicon-lock"></i>
-                  </span>
-                  <input class="form-control" placeholder="Password" name="password" type="password" value="" required="">
-                </div>
-                <div class="form-group">
-                  <button id="register-btn" class="btn btn-primary btn-block">Submit</button>
-                </div>
-              </fieldset>
-            </form>
+          <form data-toggle="validator" role="form">
+            <div class="form-group col-md-offset-2 col-lg-offset-2  col-md-8 col-lg-8 mb-1 col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10">
+              <label for="inputEmail" class="control-label">E-mail</label>
+              <input type="email" class="form-control inputEmailReg"  aria-describedby="basic-addon2" placeholder="Email" data-error="Please enter a valid mail address. Ex. example@mail.com" required>
+
+              <div class="help-block with-errors"></div>
+            </div>
+            <div class="form-group col-md-offset-2 col-lg-offset-2  col-md-8 col-lg-8 mb-1 col-sm-offset-1 col-xs-offset-1 col-sm-10 col-xs-10">
+              <label for="inputPassword" class="control-label">Password</label>
+              <input type="password" data-minlength="6" class="form-control inputPassReg"  aria-describedby="basic-addon2" id="inputPassword" placeholder="contraseña" required>
+
+              <div class="help-block">Minimun of 6 characters</div>
+            </div>
+            <div class="form-group">
+            <input type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassword" data-match-error="Oops, passwords don't match." placeholder="confirm password" required>
+            <div class="help-block with-errors"></div>
+          </div>
+
+        <div class="form-group">
+          <button id="register-btn" type="submit" class=" mb-1 btn btn-primary col-md-offset-3 col-lg-offset-3 col-md-6 col-lg-6 col-sm-offset-2 col-xs-offset-2 col-sm-8 col-xs-8 btn-registro">Submit</button>
+        </div>
+        </form>
+                    </div>
+
           </div>
         </div>
         <div class="modal-footer">
@@ -132,35 +120,25 @@
         </div>
         <div class="modal-body">
           <div style="padding: 20px;" id="form-olvidado">
-            <form accept-charset="UTF-8" role="form" id="login-form" method="post">
-              <p class="text-center">
-                <a class="btn btn-primary social-login-btn social-google" href="/auth/google">
-                  <i class="fa fa-google-plus"></i>
-                </a>
-              </p>
-              <fieldset>
-                <div class="form-group input-group">
-                  <span class="input-group-addon btn-input">
-                    <i class="glyphicon glyphicon-user"></i>
-                  </span>
-                  <input class="form-control" id="emailLog" placeholder="E-mail" name="e-mail" type="e-mail" required="" autofocus="">
-                </div>
-                <div class="form-group input-group">
-                  <span class="input-group-addon btn-input">
-                    <i class="glyphicon glyphicon-lock"></i>
-                  </span>
-                  <input class="form-control" id="passLog" placeholder="Password" name="password" type="password" value="" required="">
-                </div>
-                <div class="form-group">
-                  <button id="log-btn" class="btn btn-primary btn-block">Access</button>
-                  <p class="help-block">
-                    <a class="pull-right text-muted" href="#" id="olvidado">
-                      <small>Forgot your password?</small>
-                    </a>
-                  </p>
-                </div>
-              </fieldset>
-            </form>
+                        <form data-toggle="validator" role="form">
+      <div class="form-group col-xs-offset-2 col-sm-offset-2 col-sm-8 col-xs-8">
+        <label for="inputEmail" class="control-label">E-mail</label>
+        <input type="email" class="form-control inputEmailLog"  aria-describedby="basic-addon2" placeholder="E-mail" data-error="Please enter a valid mail address. Ex. example@mail.com" required>
+        <span class="input-group-addon glyphicon glyphicon-envelope icon-input " aria-hidden="true"></span>
+        <div class="help-block with-errors"></div>
+      </div>
+      <div class="form-group col-xs-offset-2 col-sm-offset-2 col-sm-8 col-xs-8">
+        <label for="inputPassword" class="control-label">Password</label>
+        <input type="password" data-minlength="6" class="form-control inputPassLog" aria-describedby="basic-addon2" id="inputPassword" placeholder="contraseña" required>
+        <span class="input-group-addon glyphicon glyphicon-lock icon-input" aria-hidden="true"></span>
+        <div class="help-block">Minimun of 6 characters</div>
+      </div>
+
+    <div class="form-group">
+      <button id="log-btn" type="submit" class="btn btn-primary col-xs-offset-4 col-sm-offset-4 col-sm-4 col-xs-4 btn-ingreso">Log In</button>
+    </div>
+    </form>
+                    </div>
           </div>
         </div>
         <div class="modal-footer">
@@ -170,12 +148,13 @@
     </div>
   </div>
 
-  <!--script-->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-      crossorigin="anonymous"></script>
-  <script src="https://use.fontawesome.com/788d43088a.js"></script>
-  <script src="assets/js/validate.min.js"></script>
-  <script src="assets/js/app.js"></script>
+<!--script-->
+<script src="assets/JQuery/jquery-3.2.1.min.js"></script>
+<script src="assets/Bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+<script src="assets/js/validate.min.js"></script>
+<script src="assets/js/app.js"></script>
+
+
+
 </body>
 </html>
-    
