@@ -115,3 +115,37 @@ figure div:nth-child(8):after{animation-delay:-4;}
 @keyframes shuffle{
   50%{transform:scale(0.4,0.4) rotate(-90deg);border-radius:50%;}
 }
+
+
+/*Modal Individual Items*/
+
+.cont-img{
+  margin: 20px;
+  height: auto;
+  display: flex; 
+  justify-content: center;
+
+}
+
+#pictureModal{
+  width: 100%; 
+}
+.modal-title{
+  text-align: center;
+}
+
+.internalTitle{
+  text-decoration: underline;
+  text-underline-position: right;
+  text-transform: uppercase;
+}
+
+.internalh5{
+  text-align: right;
+  font-weight: 700;
+}
+
+.internalh5left{
+  text-align: left; 
+  font-weight: 700;
+}
