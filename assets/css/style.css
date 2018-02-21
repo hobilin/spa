@@ -33,6 +33,10 @@ input::placeholder{
   transition: background-color 1s;
 }
 
+.typeSearch:focus{
+  outline: none;
+}
+
 .artistContainer {
   -moz-column-width: 18em;
   -webkit-column-width: 18em;
@@ -64,13 +68,15 @@ input::placeholder{
   width: 100%;
 }
 
-i{
-  margin-right: 1em;
+.glyphicon{
+  margin-right: 0.5em;
   color: #000;
+  font-size: 1.5em;
 }
 
-i:hover{
-  cursor: pointer;  
+.glyphicon:hover{
+  cursor: pointer; 
+  color: #646464; 
 }
 
 .footer{
@@ -114,4 +120,45 @@ figure div:nth-child(8):after{animation-delay:-4;}
 }
 @keyframes shuffle{
   50%{transform:scale(0.4,0.4) rotate(-90deg);border-radius:50%;}
+}
+
+/*Perfil de usuario*/
+
+.perfil img{
+  border-radius: 50%;
+  width: 100%;
+}
+
+.userName h1{
+  font-size: 3em;
+  margin: 6vh 0 4% 4%;
+}
+
+.userName p{
+  font-size: 1.5em;
+  margin: 0 0 4% 4%;
+}
+
+.collection {
+  -moz-column-width: 18em;
+  -webkit-column-width: 18em;
+  column-width: 18em;
+  -moz-column-gap: 1em;
+  -webkit-column-gap:1em;
+  column-gap: 1em;
+  margin: 5px;
+  margin-top: 10vh;
+}
+
+.artwork {
+  display: inline-block;
+  width: 100%;
+  height: auto;
+  margin: 0.5em;
+  border: #FFF;
+  box-shadow: 0px 11px 46px -13px rgba(0,0,0,0.54);
+}
+
+.collectionTitle {
+  margin-top: 8vh;
 }

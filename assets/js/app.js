@@ -106,8 +106,6 @@ function validateEmail($email) {
   return emailReg.test( $email );
 }
 
-
-
 function success(data){
   let records = data.records;
     records.forEach( el => {
@@ -124,10 +122,15 @@ function success(data){
       var objectId = el.objectid;
 
     if(image !== null && image !== undefined){
-      $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}"><img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p><p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text"><i class="fa fa-bookmark-o fa-7x"></i><i class="fa fa-heart-o fa-20x"></i></p></div></div></div>`);
+      $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}"><img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p><p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text"><i class="glyphicon glyphicon-bookmark"></i><i class="glyphicon glyphicon-heart"></i></p></div></div></div>`);
     }
 
-//FILTRO BUSQUEDA
+    // toggleClass iconos
+    $('.glyphicon-heart, .glyphicon-bookmark').click(function() {
+      $(this).toggleClass('#8856AF')
+    })
+
+    //FILTRO BUSQUEDA
       $('#inputSearch').keyup(function() {
       var find = $(this).val();
       $('.item').hide();
@@ -207,7 +210,7 @@ function success(data){
     })
 //FIN FILTRO BUSQUEDA
     })   
-}; 
+};  
 
 $('#showMore').click(function(){
   console.log("entrando")
@@ -231,6 +234,9 @@ for(var f = 0; f < 10; f++){
   success: success
 });
 }
+
+
+
 
 // Loader funcion
 
@@ -281,3 +287,12 @@ $(".js-saveMovie").click(function() {
 
   });
 });*/
+
+/*append para perfil de usuario
+
+$('').append(`<div class="container-fluid"><div class="row"><div class="col-md-2 col-md-offset-1 perfil">
+<img src="assets/img/stars.png" alt=""></div><div class="col-md-7 userName">
+<h1>Este es el nombre de usuario</h1><p></p><p><a href="#">Este es el link al sitio web del usuario</a></p>
+</div></div><div class="row"><div class="col-md-12 text-center collectionTitle"><h2>My Collection</h2>
+</div></div><div class="container collection"><div class="artwork"></div></div></div>`);
+*/
