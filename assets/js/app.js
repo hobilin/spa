@@ -25,7 +25,7 @@ $(document).ready(function() {
     setTimeout(function(){
     $('.preload').fadeOut(); 
     }, time);
-    $('.menu, .results').delay(500).fadeIn();
+    $('.menu, .results').delay(6500).fadeIn();
   }
 })
 
