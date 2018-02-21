@@ -45,7 +45,7 @@ input::placeholder{
   -webkit-column-gap:1em;
   column-gap: 1em;
   margin: 5px;
-  margin-top: 10vh;
+  margin-top: 5vh;
 }
 
 .item {
@@ -74,9 +74,6 @@ input::placeholder{
   font-size: 1.5em;
 }
 
-.saved {
-
-}
 .image:hover{
   cursor: pointer; 
 }
@@ -106,9 +103,27 @@ i{
 .preload{
   background-color: #000;
 }
-figure{margin:0;transform:translate(-50%,-50%) rotate(0deg) scale(1.4,1.4);position:absolute;left:50%;top:50%;border-radius:150px;box-sizing:border-box;animation:rotation 20s infinite linear;}
+figure{
+  margin:0;
+  transform:translate(-50%,-50%) rotate(0deg) scale(1.4,1.4);
+  position:absolute;
+  left:50%;
+  top:50%;
+  border-radius:150px;
+  box-sizing:border-box;
+  animation:rotation 20s infinite linear;
+}
 
-figure div:after{content:"";width:20px;height:20px;border:1px solid #fff;box-sizing:border-box;position:absolute;left:20px;top:20px;animation:shuffle 2s infinite;}
+figure div:after{
+  content:"";
+  width:20px;
+  height:20px;
+  border:1px solid #fff;
+  box-sizing:border-box;
+  position:absolute;
+  left:20px;top:20px;
+  animation:shuffle 2s infinite;
+}
 
 figure div:nth-child(1){transform:rotate(0deg)}
 figure div:nth-child(1):after{animation-delay:-0.5s;}
@@ -128,10 +143,14 @@ figure div:nth-child(8){transform:rotate(315deg)}
 figure div:nth-child(8):after{animation-delay:-4;}
 
 @keyframes rotation{
-  100%{transform:translate(-50%,-50%) rotate(-360deg) scale(1.4,1.4);}
+  100%{
+    transform:translate(-50%,-50%) rotate(-360deg) scale(1.4,1.4);
+  }
 }
 @keyframes shuffle{
-  50%{transform:scale(0.4,0.4) rotate(-90deg);border-radius:50%;}
+  50%{
+    transform:scale(0.4,0.4) rotate(-90deg);border-radius:50%;
+  }
 }
 
 

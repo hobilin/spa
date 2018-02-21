@@ -1,25 +1,18 @@
 $(document).ready(function() {
   for(var f = 0; f < 10; f++){
-  $.ajax({
-  url : `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
-  type: 'GET',
-  success: success
-});
-}
+    $.ajax({
+      url : `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
+      type: 'GET',
+      success: success
+    });
+  }
 
-  var preload = $('.preload').append(`<figure>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                        <div></div>
-                                      </figure>`)
+  // Loader
+  var preload = $('.preload').append(`<figure><div></div><div></div><div></div><div></div>
+                                    <div></div><div></div><div></div><div></div></figure>`)
   preload.show();
   splash(6500);
-  $('.menu, .results').hide();
+  $('.menu, .results, #profileContainer').hide();
   //funcion pagina splash
   function splash(time){
     setTimeout(function(){
@@ -27,6 +20,8 @@ $(document).ready(function() {
     }, time);
     $('.menu, .results').delay(6500).fadeIn();
   }
+  
+  // mostrar contenido perfil de usuario
   $("#logIn").show();
   $("#register").show();
   $("#profile").hide();
@@ -34,124 +29,113 @@ $(document).ready(function() {
   $("#home").hide();
 
 
-$('#profile').click(function() {
-  $('.results').hide();
-  $('#profileContainer').show();
-  $('#profileContainer').html(`<div class="container-fluid"><div class="row"><div class="col-md-2 col-md-offset-1 perfil">
-<img src="assets/img/stars.png" alt=""></div><div class="col-md-7 userName">
-<h1>Este es el nombre de usuario</h1><p></p><p><a href="#">Este es el link al sitio web del usuario</a></p>
-</div></div><div class="row"><div class="col-md-12 text-center collectionTitle"><h2>My Collection</h2>
-</div></div><div class="container collection"><div class="artwork"></div></div></div>`);
-})
+  $('#profile').click(function() {
+    $('.results').hide();
+    $('#profileContainer').show();
+    $('#profileContainer').html(`<div class="container-fluid"><div class="row"><div class="col-md-2 col-md-offset-1 perfil">
+    <img src="assets/img/stars.png" alt=""></div><div class="col-md-7 userName">
+    <h1>Este es el nombre de usuario</h1><p></p><p><a href="#">Este es el link al sitio web del usuario</a></p>
+    </div></div><div class="row"><div class="col-md-12 text-center collectionTitle"><h2>My Collection</h2>
+    </div></div><div class="container collection"><div class="artwork"></div></div></div>`);
+  })
 
-$('#home').click(function() {
-  $('#profileContainer').hide();
-  $('.results').show();
+  $('#home').click(function() {
+    $('#profileContainer').hide();
+    $('.results').show();
 
- })
-});
-/*
+  })
+}); // fin document.ready
 
-*/
-    // Cuando se cliqueen los botones en registro
-      $("#register-btn").click(function(e) {
-        e.preventDefault();
-        var emailReg = $("#inputEmailReg").val();
-        var passReg = $("#inputPassReg").val();
+// Cuando se cliqueen los botones en registro
+$("#register-btn").click(function(e) {
+  e.preventDefault();
+  var emailReg = $("#inputEmailReg").val();
+  var passReg = $("#inputPassReg").val();
 
-        console.log(emailReg);
-        console.log(passReg);
-        console.log("registrado");
-        firebase.auth().createUserWithEmailAndPassword(emailReg, passReg)
-        .then( function() {
-         var user = firebase.auth().currentUser;
-  user.sendEmailVerification().then(function() {
-    console.log('enviando correo');
-  }).catch(function(error) {
-    console.log(error);
-  });
-        })
-        .catch(function(error) {
-          // Handle Errors here.
-          var errorCode = error.code;
-          var errorMessage = error.message;
-          console.log(errorCode);
-          console.log(errorCode);
-        });
-
-              });
-
-
-  // FIREBASE
-
-
-  $("#log-btn").click(function(e) {
-    e.preventDefault();
-    var emailLog = $("#inputEmailLog").val();
-    var passLog = $("#inputPassLog").val();
-console.log(passLog);
-console.log(emailLog);
-    firebase.auth().signInWithEmailAndPassword(emailLog, passLog).catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-      console.log(errorCode);
-      console.log(errorCode);
+  console.log(emailReg);
+  console.log(passReg);
+  console.log("registrado");
+  firebase.auth().createUserWithEmailAndPassword(emailReg, passReg)
+  .then( function() {
+    var user = firebase.auth().currentUser;
+    user.sendEmailVerification().then(function() {
+      console.log('enviando correo');
+    }).catch(function(error) {
+      console.log(error);
     });
+  })
+  .catch(function(error) {
+    // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorCode);
+    console.log(errorCode);
   });
+}); // fin funcion click en boton registro
 
+// FIREBASE
+$("#log-btn").click(function(e) {
+  e.preventDefault();
+  var emailLog = $("#inputEmailLog").val();
+  var passLog = $("#inputPassLog").val();
+  console.log(passLog);
+  console.log(emailLog);
+  firebase.auth().signInWithEmailAndPassword(emailLog, passLog).catch(function(error) {
+  // Handle Errors here.
+    var errorCode = error.code;
+    var errorMessage = error.message;
+    console.log(errorCode);
+    console.log(errorCode);
+  });
+}); // fin funcion click en boton log in
 
+// ver si hay usuario activo
+function observardor() {
+  firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+      $("#logIn").hide();
+      $("#register").hide();
+      $("#logOut").show();
+      $("#profile").show();
+      $("#home").show();
+      $("#bookmark").show();
+      $("#heart").show();
+      console.log("usario ingresado")
+      // User is signed in.
+    } else {
+      console.log("no existe usuario activo")
+      // User is signed out.
+      // ...
+    }
+  });
+}; // fin funcion observador
+observardor();
 
-  // ver si hay usuario activo
-  function observardor() {
-    firebase.auth().onAuthStateChanged(function(user) {
-      if (user) {
-        $("#logIn").hide();
-       $("#register").hide();
-       $("#logOut").show();
-       $("#profile").show();
-       $("#home").show();
-       $("#bookmark").show();
-       $("#heart").show();
-        console.log("usario ingresado")
-        // User is signed in.
-      } else {
-        console.log("no existe usuario activo")
-        // User is signed out.
-        // ...
-      }
-    });
-  };
-   observardor();
-
-
-
-
-   $("#logOut").click(function() {
-     firebase.auth().signOut().then(function() {
-       $("#logIn").show();
-       $("#register").show();
-       $("#home").hide();
-       $("#profile").hide();
-       $("#bookmark").hide();
-       $("#heart").hide();
-       $("#logOut").css('display', 'none');
-     });
-     firebase.auth().signOut().catch(function(error) {
-   console.log("error");
-     })
-   });
+// Log out
+$("#logOut").click(function() {
+  firebase.auth().signOut().then(function() {
+    $("#logIn").show();
+    $("#register").show();
+    $("#home").hide();
+    $("#profile").hide();
+    $("#bookmark").hide();
+    $("#heart").hide();
+    $("#logOut").css('display', 'none');
+  });
+  firebase.auth().signOut().catch(function(error) {
+    console.log("error");
+  })
+}); // fin funcion click en boton log out
 
 $('#forgotPass').click(function() {
-var auth = firebase.auth();
-var emailAddress = prompt('Enter your E-mail address');
-auth.sendPasswordResetEmail(emailAddress).then(function() {
-// Email sent.
-}).catch(function(error) {
-  console.log(error);
-});
-});
-
+  var auth = firebase.auth();
+  var emailAddress = prompt('Enter your E-mail address');
+  auth.sendPasswordResetEmail(emailAddress).then(function() {
+    // Email sent.
+  }).catch(function(error) {
+    console.log(error);
+    });
+}); // fin funcion click en forgot pass
 
 // VALIDADOR (cierra el modal al validar)
 $('.modal').on('shown.bs.modal', function () {
@@ -164,61 +148,52 @@ function validateEmail($email) {
   return emailReg.test( $email );
 }
 
-function success(data){
+function success(data) {
   let records = data.records;
   console.log(records)
-    records.forEach( el => {
-      var title = el.title;
-      var image = el.primaryimageurl;
-      var period = el.period;
-      var technique = el.technique;
-      var people = el.people[0].displayname;
-      var date = el.dated;
-      var idPeople = el.people[0].displayname;
-      var idTitle = el.title;
-      var idPeriod = el.period;
-      var idTechnique = el.technique;
-      var objectId = el.objectid;
-      var departament = el.departament; 
-      var division = el.division; 
-      var creditline = el.creditline; 
-      var provenance = el.provenance; 
-      var century= el.century; 
-      var culture = el.culture;
-      var dimensions = el.dimensions;
-      var contact = el.contact; 
-      var classification = el.classification;
+  records.forEach(el => {
+    var title = el.title;
+    var image = el.primaryimageurl;
+    var period = el.period;
+    var technique = el.technique;
+    var people = el.people[0].displayname;
+    var date = el.dated;
+    var idPeople = el.people[0].displayname;
+    var idTitle = el.title;
+    var idPeriod = el.period;
+    var idTechnique = el.technique;
+    var objectId = el.objectid;
+    var departament = el.departament; 
+    var division = el.division; 
+    var creditline = el.creditline; 
+    var provenance = el.provenance; 
+    var century= el.century; 
+    var culture = el.culture;
+    var dimensions = el.dimensions;
+    var contact = el.contact; 
+    var classification = el.classification;
 
-    if(image !== null && image !== undefined){
+    if (image !== null && image !== undefined) {
 
       $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}">
-                                      <img class="image" src="${image}">
-                                        <div class="caption">
-                                        <h3>${people}</h3>
-                                        <p>Date: ${date}</p>
-                                        <p>Title: ${title}</p>
-                                        <p>Period: ${period}</p>
-                                        <p>Technique: ${technique}</p>
-                                          <div>
-                                          <p class="card-text"><i id="bookmark" class="glyphicon glyphicon-bookmark"></i><i id="heart" class="glyphicon glyphicon-heart"></i></p>
-      
-                                          </div>
-                                        </div>
-                                      </div>`);
+                                    <img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p>
+                                    <p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text">
+                                    <i id="bookmark" class="glyphicon glyphicon-bookmark"></i><i id="heart" class="glyphicon glyphicon-heart"></i></p>
+                                    </div></div></div>`);
     }
-     // Inicio Contenido modal individual
+    
+    // Inicio Contenido modal individual
     $('.item').click(function(event) {
       event.stopImmediatePropagation();
       $(".modal-body-items").empty(); 
       $('#modal-item').modal('show');
       var catchid = $(this).attr('id');
-      if (catchid == objectId){
+      if (catchid == objectId) {
         $(".modal-title").html(`${title} // ${date}`)
         $(".modal-body-items").append(`<div class="row cont-img col-xs-11 col-md-12">
             <img id="pictureModal" src="${image}" alt="img-piece">  
           </div>
           <p class="text-center"> <i class="far fa-copyright"></i> ${creditline}</p>
-
           <div class="row">
             <div class="col-xs-12 col-md-6">
               <h4 class="internalTitle text-right">Identificacion and Creation</h4>
@@ -247,42 +222,37 @@ function success(data){
               <p class="text-left">${contact}</p>
             </div>
           </div>`) 
+      }
+    }); // fin funcion click en item
+  }); // fin funcion forEach
+} // fin funcion success
+
+$('#artist').css('background-color', '#000');
+$('#artist').css('color', '#fff');
+
+$('#inputSearch').keyup(function() {
+  var find = $(this).val();
+  find.toLowerCase();
+  $('.item').hide();
+
+  $('.item').each(function() {
+    var search = $(this).attr('people-id');
+    search.toLowerCase();
+    if (search.indexOf(find) != -1) {
+      $(this).show();
     }
+  });
+}); // fin funcion inputSearch
 
-})
-    })
+$('.typeSearch').click(function() {
+  $(this).css('background-color', '#000');
+  $(this).css('color', '#fff');
+  $(this).siblings().css( "background-color", "#fff" );
+  $(this).siblings().css( "color", "#000" );
 
-}
-    $('#artist').css('background-color', '#000');
-    $('#artist').css('color', '#fff');
-
-
-
-
-
-      $('#inputSearch').keyup(function() {
-      var find = $(this).val();
-      find.toLowerCase();
-      $('.item').hide();
-
-      $('.item').each(function() {
-        var search = $(this).attr('people-id');
-        search.toLowerCase();
-        if (search.indexOf(find) != -1) {
-          $(this).show();
-        }
-      });
-    });
-
-    $('.typeSearch').click(function() {
-      $(this).css('background-color', '#000');
-      $(this).css('color', '#fff');
-      $(this).siblings().css( "background-color", "#fff" );
-      $(this).siblings().css( "color", "#000" );
-
-      if($(this).attr('value') === 'title'){
-        $('#inputSearch').attr('placeholder', 'Search By Title');
-        $('#inputSearch').keyup(function() {
+  if ($(this).attr('value') === 'title') {
+    $('#inputSearch').attr('placeholder', 'Search By Title');
+    $('#inputSearch').keyup(function() {
       var find = $(this).val();
       find.toLowerCase();
       $('.item').hide();
@@ -295,11 +265,11 @@ function success(data){
         }
       });
     });
-    }
+  } // fin if => title
 
-    if($(this).attr('value') === 'period'){
-      $('#inputSearch').attr('placeholder', 'Search By Period');
-      $('#inputSearch').keyup(function() {
+  if ($(this).attr('value') === 'period') {
+    $('#inputSearch').attr('placeholder', 'Search By Period');
+    $('#inputSearch').keyup(function() {
       var find = $(this).val();
       find.toLowerCase();
       $('.item').hide();
@@ -312,11 +282,11 @@ function success(data){
         }
       });
     });
-    }
+  } // fin if => period
 
-      if($(this).attr('value') === 'technique'){
-      $('#inputSearch').attr('placeholder', 'Search By Technique');
-      $('#inputSearch').keyup(function() {
+  if ($(this).attr('value') === 'technique') {
+    $('#inputSearch').attr('placeholder', 'Search By Technique');
+    $('#inputSearch').keyup(function() {
       var find = $(this).val();
       find.toLowerCase();
       $('.item').hide();
@@ -329,10 +299,11 @@ function success(data){
         }
       });
     });
-    }
-      if($(this).attr('value') === 'artist'){
-      $('#inputSearch').attr('placeholder', 'Search By Artist');
-      $('#inputSearch').keyup(function() {
+  } // fin if => technique
+ 
+  if ($(this).attr('value') === 'artist') {
+    $('#inputSearch').attr('placeholder', 'Search By Artist');
+    $('#inputSearch').keyup(function() {
       var find = $(this).val();
       find.toLowerCase();
       $('.item').hide();
@@ -346,26 +317,20 @@ function success(data){
         }
       });
     });
-    }
-    })
+  } // fin if => artist
+}) // fin funcion typeSearch
 //FIN FILTRO BUSQUEDA
 
-$('#showMore').click(function(){
+$('#showMore').click(function() {
   console.log("entrando")
-  for(var f = 0; f < countPage; f++){
-  $.ajax({
-  url : `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
-  type: 'GET',
-  success: success
-  });
-}
+  for (var f = 0; f < countPage; f++) {
+    $.ajax({
+      url : `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
+      type: 'GET',
+      success: success
+    });
+  }
 });
-
-
-
-
-
-// Loader funcion
 
 
 /*
