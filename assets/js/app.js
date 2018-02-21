@@ -205,7 +205,7 @@ function success(data){
                                         </div>
                                       </div>`);
     }
-
+    
     $('#artist').css('background-color', '#000');
     $('#artist').css('color', '#fff');
 
@@ -306,7 +306,8 @@ function success(data){
     }
     })
 //FIN FILTRO BUSQUEDA
-      });
+
+      })   
 }; 
     // Inicio Contenido modal individual
     //FALTA INICIAR EVENTO 
@@ -343,10 +344,7 @@ function success(data){
             <h4 class="internalTitle text-left "> Contact </h4>
             <p class="text-left">${contact}</p>
           </div>
-        </div>`) 
-    
-       
-
+        </div>`);
 
 
 $('#showMore').click(function(){
