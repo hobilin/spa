@@ -14,14 +14,33 @@ $(document).ready(function() {
   $("#register").show();
   $("#profile").hide();
   $("#logOut").hide();
+  $("#home").hide();
+
+
+$('#profile').click(function() {
+  $('.results').hide();
+  $('#profileContainer').show();
+  $('#profileContainer').html(`<div class="container-fluid"><div class="row"><div class="col-md-2 col-md-offset-1 perfil">
+<img src="assets/img/stars.png" alt=""></div><div class="col-md-7 userName">
+<h1>Este es el nombre de usuario</h1><p></p><p><a href="#">Este es el link al sitio web del usuario</a></p>
+</div></div><div class="row"><div class="col-md-12 text-center collectionTitle"><h2>My Collection</h2>
+</div></div><div class="container collection"><div class="artwork"></div></div></div>`);
 })
 
+$('#home').click(function() {
+  $('#profileContainer').hide();
+  $('.results').show();
 
+ })
+});
+/*
+
+*/
     // Cuando se cliqueen los botones en registro
       $("#register-btn").click(function(e) {
         e.preventDefault();
-        var emailReg = $(".inputEmailReg").val();
-        var passReg = $(".inputPassReg").val();
+        var emailReg = $("#inputEmailReg").val();
+        var passReg = $("#inputPassReg").val();
 
         console.log(emailReg);
         console.log(passReg);
@@ -49,13 +68,12 @@ $(document).ready(function() {
   // FIREBASE
 
 
-  $("#log-btn").click(function ingresar(e) {
+  $("#log-btn").click(function(e) {
     e.preventDefault();
-    var emailLog = $(".inputEmailLog").val();
-    var passLog = $(".inputPassLog").val();
-
-
-
+    var emailLog = $("#inputEmailLog").val();
+    var passLog = $("#inputPassLog").val();
+console.log(passLog);
+console.log(emailLog);
     firebase.auth().signInWithEmailAndPassword(emailLog, passLog).catch(function(error) {
       // Handle Errors here.
       var errorCode = error.code;
@@ -75,6 +93,7 @@ $(document).ready(function() {
        $("#register").hide();
        $("#logOut").show();
        $("#profile").show();
+       $("#home").show();
        $("#bookmark").show();
        $("#heart").show();
         console.log("usario ingresado")
@@ -95,6 +114,7 @@ $(document).ready(function() {
      firebase.auth().signOut().then(function() {
        $("#logIn").show();
        $("#register").show();
+       $("#home").hide();
        $("#profile").hide();
        $("#bookmark").hide();
        $("#heart").hide();
@@ -146,18 +166,25 @@ function success(data){
       $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}"><img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p><p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text"><i id="bookmark" class="glyphicon glyphicon-bookmark"></i><i id="heart" class="glyphicon glyphicon-heart"></i></p></div></div></div>`);
     }
 
+    $('#artist').css('background-color', '#000');
+    $('#artist').css('color', '#fff');
+
+
     // toggleClass iconos
-    $('.glyphicon-heart, .glyphicon-bookmark').click(function() {
-      $(this).toggleClass('#8856AF')
-    })
+    $( "i" ).click(function() {
+  $(this).toggleClass( "saved" );
+});
 
     //FILTRO BUSQUEDA
+
       $('#inputSearch').keyup(function() {
       var find = $(this).val();
+      find.toLowerCase();
       $('.item').hide();
 
       $('.item').each(function() {
         var search = $(this).attr('people-id');
+        search.toLowerCase();
         if (search.indexOf(find) != -1) {
           $(this).show();
         }
@@ -174,10 +201,12 @@ function success(data){
         $('#inputSearch').attr('placeholder', 'Search By Title');
         $('#inputSearch').keyup(function() {
       var find = $(this).val();
+      find.toLowerCase();
       $('.item').hide();
 
       $('.item').each(function() {
         var search = $(this).attr('title-id');
+        search.toLowerCase();
         if (search.indexOf(find) != -1) {
           $(this).show();
         }
@@ -189,10 +218,12 @@ function success(data){
       $('#inputSearch').attr('placeholder', 'Search By Period');
       $('#inputSearch').keyup(function() {
       var find = $(this).val();
+      find.toLowerCase();
       $('.item').hide();
 
       $('.item').each(function() {
         var search = $(this).attr('period-id');
+        search.toLowerCase();
         if (search.indexOf(find) != -1) {
           $(this).show();
         }
@@ -204,10 +235,12 @@ function success(data){
       $('#inputSearch').attr('placeholder', 'Search By Technique');
       $('#inputSearch').keyup(function() {
       var find = $(this).val();
+      find.toLowerCase();
       $('.item').hide();
 
       $('.item').each(function() {
         var search = $(this).attr('technique-id');
+        search.toLowerCase();
         if (search.indexOf(find) != -1) {
           $(this).show();
         }
@@ -218,10 +251,13 @@ function success(data){
       $('#inputSearch').attr('placeholder', 'Search By Artist');
       $('#inputSearch').keyup(function() {
       var find = $(this).val();
+      find.toLowerCase();
       $('.item').hide();
 
       $('.item').each(function() {
         var search = $(this).attr('people-id');
+        search.toLowerCase();
+        console.log(search);
         if (search.indexOf(find) != -1) {
           $(this).show();
         }
@@ -311,9 +347,27 @@ $(".js-saveMovie").click(function() {
 
 /*append para perfil de usuario
 
-$('').append(`<div class="container-fluid"><div class="row"><div class="col-md-2 col-md-offset-1 perfil">
-<img src="assets/img/stars.png" alt=""></div><div class="col-md-7 userName">
-<h1>Este es el nombre de usuario</h1><p></p><p><a href="#">Este es el link al sitio web del usuario</a></p>
-</div></div><div class="row"><div class="col-md-12 text-center collectionTitle"><h2>My Collection</h2>
-</div></div><div class="container collection"><div class="artwork"></div></div></div>`);
+
+*/
+
+/*
+function gotDataSave(data) {
+  console.log("data funciona");
+  var users = firebase.database.ref().child();
+     var userid = firebase.auth().currentUser.uid;
+     var posterSaved = userid.saved.poster;
+     var titleSaved = userid.saved.title;
+     var yearSaved = userid.saved.year;
+     var genreSaved = userid.saved.genre;
+     $("#favoritos").append('<div class="js-cardMovie col-xs-6 col-sm-4 col-md-3 b p-0">' +
+                                  '<div class="shadow m-1"><div class="js-img-movie">' +
+                                  '<img class="img-responsive" src="' + posterSaved + '"></div>' +
+                                  '<div class="p-1"><button class="js-saveMovie btn-saveM pull-right">' +
+                                  '<span class="glyphicon glyphicon-bookmark"></span></button>' +
+                                  '<h4 class="js-titleMovie">' + titleSaved + '</h4><span class="js-year">' + yearSaved + '</span>' +
+                                  '<p class="js-gender">' + genreSaved + '</p><div class="js-stars">' +
+                                  '<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star"></span>' +
+                                  '<span class="glyphicon glyphicon-star"></span><span class="glyphicon glyphicon-star-empty"></span>' +
+                                  '</div></div></div></div>');
+   };
 */
