@@ -1,5 +1,22 @@
 $(document).ready(function() {
-  var preload = $('.preload').append(`<figure><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></figure>`)
+  for(var f = 0; f < 10; f++){
+  $.ajax({
+  url : `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
+  type: 'GET',
+  success: success
+});
+}
+
+  var preload = $('.preload').append(`<figure>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                        <div></div>
+                                      </figure>`)
   preload.show();
   splash(6500);
   $('.menu, .results').hide();
@@ -129,6 +146,7 @@ function validateEmail($email) {
 
 function success(data){
   let records = data.records;
+  console.log(records)
     records.forEach( el => {
       var title = el.title;
       var image = el.primaryimageurl;
@@ -141,10 +159,33 @@ function success(data){
       var idPeriod = el.period;
       var idTechnique = el.technique;
       var objectId = el.objectid;
+      var departament = el.departament; 
+      var division = el.division; 
+      var creditline = el.creditline; 
+      var provenance = el.provenance; 
+      var century= el.century; 
+      var culture = el.culture;
+      var dimensions = el.dimensions;
+      var contact = el.contact; 
 
     if(image !== null && image !== undefined){
-      $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}"><img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p><p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text"><i id="bookmark" class="glyphicon glyphicon-bookmark"></i><i id="heart" class="glyphicon glyphicon-heart"></i></p></div></div></div>`);
+
+      $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}">
+                                      <img class="image" src="${image}">
+                                        <div class="caption">
+                                        <h3>${people}</h3>
+                                        <p>Date: ${date}</p>
+                                        <p>Title: ${title}</p>
+                                        <p>Period: ${period}</p>
+                                        <p>Technique: ${technique}</p>
+                                          <div>
+                                          <p class="card-text"><i id="bookmark" class="glyphicon glyphicon-bookmark"></i><i id="heart" class="glyphicon glyphicon-heart"></i></p>
+                                          <button id="moreInfo" data-toggle="modal" data-target="#modal-item">More Information</button>
+                                          </div>
+                                        </div>
+                                      </div>`);
     }
+})
 
     // toggleClass iconos
     $('.glyphicon-heart, .glyphicon-bookmark').click(function() {
@@ -230,8 +271,48 @@ function success(data){
     }
     })
 //FIN FILTRO BUSQUEDA
-    })   
-};  
+      })   
+}; 
+    // Inicio Contenido modal individual
+    //FALTA INICIAR EVENTO 
+    $(".modal-title").html(`${title} // ${date}`)
+    $(".modal-body-items").append(`<div class="row cont-img col-xs-11 col-md-12">
+          <figure class=> <img id="pictureModal" src="${image}" alt="img-piece"></figure>  
+        </div>
+        <p class="text-center"> <i class="far fa-copyright"></i> ${creditline}</p>
+
+        <div class="row">
+          <div class="col-xs-12 col-md-6">
+            <h4 class="internalTitle text-right">Identificacion and Creation</h4>
+            <h5 class="internalh5">Departament</h5>
+            <p class="text-right">${departament} </p>
+            <h5 class="internalh5">Division</h5>
+            <p class="text-right">${division}</p>
+            <h5 class="internalh5">Classification</h5>
+            <p class="text-right">${classification}</p>
+            <h5 class="internalh5">Provenance</h5>
+            <p class="text-right">${provenance}</p>
+            <h5 class="internalh5">Date</h5>
+            <p class="text-right">${date}</p>
+            <h5 class="internalh5">Century</h5>
+            <p class="text-right">${century}</p>
+            <h5 class="internalh5">Culture</h5>
+            <p class="text-right">${culture}</p>
+          </div>
+          <div class="col-xs-12 col-md-6">
+            <h4 class="internalTitle text-left ">Physical <br> Descriptions</h4>
+            <h5 class="internalh5left">Technique: </h5>
+            <p class="text-left">${technique}</p>
+            <h5 class="internalh5left">Dimensions</h5>
+            <p class="text-left">${dimensions}</p>
+            <h4 class="internalTitle text-left "> Contact </h4>
+            <p class="text-left">${contact}</p>
+          </div>
+        </div>`) 
+    
+       
+}; 
+
 
 $('#showMore').click(function(){
   console.log("entrando")
@@ -243,18 +324,9 @@ $('#showMore').click(function(){
 });
 
 }
-
-
 });
 
 
-for(var f = 0; f < 10; f++){
-  $.ajax({
-  url : `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
-  type: 'GET',
-  success: success
-});
-}
 
 
 
