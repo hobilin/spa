@@ -27,6 +27,10 @@ $(document).ready(function() {
     }, time);
     $('.menu, .results').delay(6500).fadeIn();
   }
+  $("#logIn").show();
+  $("#register").show();
+  $("#profile").hide();
+  $("#logOut").hide();
 })
 
 
@@ -39,7 +43,16 @@ $(document).ready(function() {
         console.log(emailReg);
         console.log(passReg);
         console.log("registrado");
-        firebase.auth().createUserWithEmailAndPassword(emailReg, passReg).catch(function(error) {
+        firebase.auth().createUserWithEmailAndPassword(emailReg, passReg)
+        .then( function() {
+         var user = firebase.auth().currentUser;
+  user.sendEmailVerification().then(function() {
+    console.log('enviando correo');
+  }).catch(function(error) {
+    console.log(error);
+  });
+        })
+        .catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -78,12 +91,9 @@ $(document).ready(function() {
         $("#logIn").hide();
        $("#register").hide();
        $("#logOut").show();
-       var user = firebase.auth().currentUser;
-user.sendEmailVerification().then(function() {
-  console.log("email sent");
-}).catch(function(error) {
-  console.log("email not sent: " + error);
-});
+       $("#profile").show();
+       $("#bookmark").show();
+       $("#heart").show();
         console.log("usario ingresado")
         // User is signed in.
       } else {
@@ -102,6 +112,9 @@ user.sendEmailVerification().then(function() {
      firebase.auth().signOut().then(function() {
        $("#logIn").show();
        $("#register").show();
+       $("#profile").hide();
+       $("#bookmark").hide();
+       $("#heart").hide();
        $("#logOut").css('display', 'none');
      });
      firebase.auth().signOut().catch(function(error) {
@@ -109,7 +122,15 @@ user.sendEmailVerification().then(function() {
      })
    });
 
-
+$('#forgotPass').click(function() {
+var auth = firebase.auth();
+var emailAddress = prompt('Enter your E-mail address');
+auth.sendPasswordResetEmail(emailAddress).then(function() {
+// Email sent.
+}).catch(function(error) {
+  console.log(error);
+});
+});
 
 
 // VALIDADOR (cierra el modal al validar)
@@ -122,8 +143,6 @@ function validateEmail($email) {
   var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
   return emailReg.test( $email );
 }
-
-
 
 function success(data){
   let records = data.records;
@@ -160,7 +179,7 @@ function success(data){
                                         <p>Period: ${period}</p>
                                         <p>Technique: ${technique}</p>
                                           <div>
-                                          <p class="card-text"><i class="fa fa-bookmark-o fa-7x"></i><i class="fa fa-heart-o fa-20x"></i></p>
+                                          <p class="card-text"><i id="bookmark" class="glyphicon glyphicon-bookmark"></i><i id="heart" class="glyphicon glyphicon-heart"></i></p>
                                           <button id="moreInfo" data-toggle="modal" data-target="#modal-item">More Information</button>
                                           </div>
                                         </div>
@@ -168,7 +187,12 @@ function success(data){
     }
 })
 
-//FILTRO BUSQUEDA
+    // toggleClass iconos
+    $('.glyphicon-heart, .glyphicon-bookmark').click(function() {
+      $(this).toggleClass('#8856AF')
+    })
+
+    //FILTRO BUSQUEDA
       $('#inputSearch').keyup(function() {
       var find = $(this).val();
       $('.item').hide();
@@ -247,6 +271,8 @@ function success(data){
     }
     })
 //FIN FILTRO BUSQUEDA
+      })   
+}; 
     // Inicio Contenido modal individual
     //FALTA INICIAR EVENTO 
     $(".modal-title").html(`${title} // ${date}`)
@@ -287,6 +313,7 @@ function success(data){
        
 }; 
 
+
 $('#showMore').click(function(){
   console.log("entrando")
   for(var f = 0; f < countPage; f++){
@@ -298,6 +325,9 @@ $('#showMore').click(function(){
 
 }
 });
+
+
+
 
 
 
@@ -350,3 +380,12 @@ $(".js-saveMovie").click(function() {
 
   });
 });*/
+
+/*append para perfil de usuario
+
+$('').append(`<div class="container-fluid"><div class="row"><div class="col-md-2 col-md-offset-1 perfil">
+<img src="assets/img/stars.png" alt=""></div><div class="col-md-7 userName">
+<h1>Este es el nombre de usuario</h1><p></p><p><a href="#">Este es el link al sitio web del usuario</a></p>
+</div></div><div class="row"><div class="col-md-12 text-center collectionTitle"><h2>My Collection</h2>
+</div></div><div class="container collection"><div class="artwork"></div></div></div>`);
+*/
