@@ -186,12 +186,13 @@ function success(data){
       var century= el.century; 
       var culture = el.culture;
       var dimensions = el.dimensions;
-      var contact = el.contact; 
+      var contact = el.contact;
+      var classification = el.classification; 
 
     if(image !== null && image !== undefined){
 
-      $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}">
-                                      <img class="image" src="${image}">
+      $('.artistContainer').append(`<div class="item thumbnail"  id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}">
+                                      <img class="image" data-toggle="modal" data-target="#modal-item" src="${image}">
                                         <div class="caption">
                                         <h3>${people}</h3>
                                         <p>Date: ${date}</p>
@@ -199,11 +200,12 @@ function success(data){
                                         <p>Period: ${period}</p>
                                         <p>Technique: ${technique}</p>
                                           <div>
-                                          <p class="card-text"><i id="bookmark" class="glyphicon glyphicon-bookmark"></i><i id="heart" class="glyphicon glyphicon-heart"></i></p>
-                                          <button id="moreInfo" data-toggle="modal" data-target="#modal-item">More Information</button>
+                                          <p class="card-text"><i class="fa fa-bookmark-o fa-7x"></i><i class="fa fa-heart-o fa-20x"></i></p>
                                           </div>
                                         </div>
                                       </div>`);
+
+         
     }
     
     $('#artist').css('background-color', '#000');
@@ -216,6 +218,56 @@ function success(data){
 });
 
     //FILTRO BUSQUEDA
+
+ // Inicio Contenido modal individual
+    $(document).on('click', '.image', function (e) {
+      var event = $(e.target).parent(); 
+      var catchid = event.attr('id');
+      console.log("id div papa : " + catchid)
+      console.log("objectID : " + objectId)
+      if (catchid == objectId){
+        $(".modal-title").html(`${title} // ${date}`)
+        $(".modal-body-items").append(`<div class="row cont-img col-xs-11 col-md-12">
+            <figure class=> <img id="pictureModal" src="${image}" alt="img-piece"></figure>  
+          </div>
+          <p class="text-center"> <i class="far fa-copyright"></i> ${creditline}</p>
+
+          <div class="row">
+            <div class="col-xs-12 col-md-6">
+              <h4 class="internalTitle text-right">Identificacion and Creation</h4>
+              <h5 class="internalh5">Departament</h5>
+              <p class="text-right">${departament} </p>
+              <h5 class="internalh5">Division</h5>
+              <p class="text-right">${division}</p>
+              <h5 class="internalh5">Classification</h5>
+              <p class="text-right">${classification}</p>
+              <h5 class="internalh5">Provenance</h5>
+              <p class="text-right">${provenance}</p>
+              <h5 class="internalh5">Date</h5>
+              <p class="text-right">${date}</p>
+              <h5 class="internalh5">Century</h5>
+              <p class="text-right">${century}</p>
+              <h5 class="internalh5">Culture</h5>
+              <p class="text-right">${culture}</p>
+            </div>
+            <div class="col-xs-12 col-md-6">
+              <h4 class="internalTitle text-left ">Physical <br> Descriptions</h4>
+              <h5 class="internalh5left">Technique: </h5>
+              <p class="text-left">${technique}</p>
+              <h5 class="internalh5left">Dimensions</h5>
+              <p class="text-left">${dimensions}</p>
+              <h4 class="internalTitle text-left "> Contact </h4>
+              <p class="text-left">${contact}</p>
+            </div>
+          </div>`) 
+      }
+
+
+    })
+
+  })
+    
+}
 
       $('#inputSearch').keyup(function() {
       var find = $(this).val();
@@ -271,7 +323,7 @@ function success(data){
     });
     }
 
-        if($(this).attr('value') === 'technique'){
+      if($(this).attr('value') === 'technique'){
       $('#inputSearch').attr('placeholder', 'Search By Technique');
       $('#inputSearch').keyup(function() {
       var find = $(this).val();
@@ -307,45 +359,8 @@ function success(data){
     })
 //FIN FILTRO BUSQUEDA
 
-      })   
+
 }; 
-    // Inicio Contenido modal individual
-    //FALTA INICIAR EVENTO 
-    $(".modal-title").html(`${title} // ${date}`)
-    $(".modal-body-items").append(`<div class="row cont-img col-xs-11 col-md-12">
-          <figure class=> <img id="pictureModal" src="${image}" alt="img-piece"></figure>  
-        </div>
-        <p class="text-center"> <i class="far fa-copyright"></i> ${creditline}</p>
-
-        <div class="row">
-          <div class="col-xs-12 col-md-6">
-            <h4 class="internalTitle text-right">Identificacion and Creation</h4>
-            <h5 class="internalh5">Departament</h5>
-            <p class="text-right">${departament} </p>
-            <h5 class="internalh5">Division</h5>
-            <p class="text-right">${division}</p>
-            <h5 class="internalh5">Classification</h5>
-            <p class="text-right">${classification}</p>
-            <h5 class="internalh5">Provenance</h5>
-            <p class="text-right">${provenance}</p>
-            <h5 class="internalh5">Date</h5>
-            <p class="text-right">${date}</p>
-            <h5 class="internalh5">Century</h5>
-            <p class="text-right">${century}</p>
-            <h5 class="internalh5">Culture</h5>
-            <p class="text-right">${culture}</p>
-          </div>
-          <div class="col-xs-12 col-md-6">
-            <h4 class="internalTitle text-left ">Physical <br> Descriptions</h4>
-            <h5 class="internalh5left">Technique: </h5>
-            <p class="text-left">${technique}</p>
-            <h5 class="internalh5left">Dimensions</h5>
-            <p class="text-left">${dimensions}</p>
-            <h4 class="internalTitle text-left "> Contact </h4>
-            <p class="text-left">${contact}</p>
-          </div>
-        </div>`);
-
 
 $('#showMore').click(function(){
   console.log("entrando")
