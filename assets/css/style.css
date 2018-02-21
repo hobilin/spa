@@ -49,6 +49,7 @@ input::placeholder{
 }
 
 .item {
+  z-index: 10; 
   display: inline-block;
   width: 100%;
   height: auto;
@@ -58,7 +59,6 @@ input::placeholder{
 }
 
 .item:hover{
-  cursor: pointer;
   box-shadow: none;
   transition: box-shadow 1s;
 
@@ -75,6 +75,14 @@ input::placeholder{
 }
 
 .saved {
+
+}
+.image:hover{
+  cursor: pointer; 
+}
+
+i{
+  margin-right: 1em;
   color: #000;
 }
 
@@ -138,7 +146,8 @@ figure div:nth-child(8):after{animation-delay:-4;}
 }
 
 #pictureModal{
-  width: 100%; 
+  width: 80%;
+  height: 15em;  
 }
 .modal-title{
   text-align: center;
