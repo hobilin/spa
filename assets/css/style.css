@@ -115,3 +115,13 @@ figure div:nth-child(8):after{animation-delay:-4;}
 @keyframes shuffle{
   50%{transform:scale(0.4,0.4) rotate(-90deg);border-radius:50%;}
 }
+
+.form-group {
+  padding-right: 5em;
+  padding-left: 5em;
+  padding-bottom: 1em;
+}
+
+form {
+  padding: 1em;
+}

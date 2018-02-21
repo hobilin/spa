@@ -10,6 +10,10 @@ $(document).ready(function() {
     }, time);
     $('.menu, .results').delay(6500).fadeIn();
   }
+  $("#logIn").show();
+  $("#register").show();
+  $("#profile").hide();
+  $("#logOut").hide();
 })
 
 
@@ -22,7 +26,16 @@ $(document).ready(function() {
         console.log(emailReg);
         console.log(passReg);
         console.log("registrado");
-        firebase.auth().createUserWithEmailAndPassword(emailReg, passReg).catch(function(error) {
+        firebase.auth().createUserWithEmailAndPassword(emailReg, passReg)
+        .then( function() {
+         var user = firebase.auth().currentUser;
+  user.sendEmailVerification().then(function() {
+    console.log('enviando correo');
+  }).catch(function(error) {
+    console.log(error);
+  });
+        })
+        .catch(function(error) {
           // Handle Errors here.
           var errorCode = error.code;
           var errorMessage = error.message;
@@ -61,12 +74,9 @@ $(document).ready(function() {
         $("#logIn").hide();
        $("#register").hide();
        $("#logOut").show();
-       var user = firebase.auth().currentUser;
-user.sendEmailVerification().then(function() {
-  console.log("email sent");
-}).catch(function(error) {
-  console.log("email not sent: " + error);
-});
+       $("#profile").show();
+       $("#bookmark").show();
+       $("#heart").show();
         console.log("usario ingresado")
         // User is signed in.
       } else {
@@ -85,6 +95,9 @@ user.sendEmailVerification().then(function() {
      firebase.auth().signOut().then(function() {
        $("#logIn").show();
        $("#register").show();
+       $("#profile").hide();
+       $("#bookmark").hide();
+       $("#heart").hide();
        $("#logOut").css('display', 'none');
      });
      firebase.auth().signOut().catch(function(error) {
@@ -92,7 +105,15 @@ user.sendEmailVerification().then(function() {
      })
    });
 
-
+$('#forgotPass').click(function() {
+var auth = firebase.auth();
+var emailAddress = prompt('Enter your E-mail address');
+auth.sendPasswordResetEmail(emailAddress).then(function() {
+// Email sent.
+}).catch(function(error) {
+  console.log(error);
+});
+});
 
 
 // VALIDADOR (cierra el modal al validar)
@@ -124,7 +145,7 @@ function success(data){
       var objectId = el.objectid;
 
     if(image !== null && image !== undefined){
-      $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}"><img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p><p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text"><i class="fa fa-bookmark-o fa-7x"></i><i class="fa fa-heart-o fa-20x"></i></p></div></div></div>`);
+      $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}"><img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p><p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text"><i id="bookmark" class="fa fa-bookmark-o fa-7x"></i><i id="heart" class="fa fa-heart-o fa-20x"></i></p></div></div></div>`);
     }
 
 //FILTRO BUSQUEDA
