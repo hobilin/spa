@@ -186,13 +186,13 @@ function success(data){
       var century= el.century; 
       var culture = el.culture;
       var dimensions = el.dimensions;
-      var contact = el.contact;
-      var classification = el.classification; 
+      var contact = el.contact; 
+      var classification = el.classification;
 
     if(image !== null && image !== undefined){
 
-      $('.artistContainer').append(`<div class="item thumbnail"  id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}">
-                                      <img class="image" data-toggle="modal" data-target="#modal-item" src="${image}">
+      $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}">
+                                      <img class="image" src="${image}">
                                         <div class="caption">
                                         <h3>${people}</h3>
                                         <p>Date: ${date}</p>
@@ -200,35 +200,22 @@ function success(data){
                                         <p>Period: ${period}</p>
                                         <p>Technique: ${technique}</p>
                                           <div>
-                                          <p class="card-text"><i class="fa fa-bookmark-o fa-7x"></i><i class="fa fa-heart-o fa-20x"></i></p>
+                                          <p class="card-text"><i id="bookmark" class="glyphicon glyphicon-bookmark"></i><i id="heart" class="glyphicon glyphicon-heart"></i></p>
+      
                                           </div>
                                         </div>
                                       </div>`);
-
-         
     }
-    
-    $('#artist').css('background-color', '#000');
-    $('#artist').css('color', '#fff');
-
-
-    // toggleClass iconos
-    $( "i" ).click(function() {
-  $(this).toggleClass( "saved" );
-});
-
-    //FILTRO BUSQUEDA
-
- // Inicio Contenido modal individual
-    $(document).on('click', '.image', function (e) {
-      var event = $(e.target).parent(); 
-      var catchid = event.attr('id');
-      console.log("id div papa : " + catchid)
-      console.log("objectID : " + objectId)
+     // Inicio Contenido modal individual
+    $('.item').click(function(event) {
+      event.stopImmediatePropagation();
+      $(".modal-body-items").empty(); 
+      $('#modal-item').modal('show');
+      var catchid = $(this).attr('id');
       if (catchid == objectId){
         $(".modal-title").html(`${title} // ${date}`)
         $(".modal-body-items").append(`<div class="row cont-img col-xs-11 col-md-12">
-            <figure class=> <img id="pictureModal" src="${image}" alt="img-piece"></figure>  
+            <img id="pictureModal" src="${image}" alt="img-piece">  
           </div>
           <p class="text-center"> <i class="far fa-copyright"></i> ${creditline}</p>
 
@@ -268,6 +255,9 @@ function success(data){
   })
     
 }
+
+
+
 
       $('#inputSearch').keyup(function() {
       var find = $(this).val();
@@ -359,9 +349,6 @@ function success(data){
     })
 //FIN FILTRO BUSQUEDA
 
-
-}; 
-
 $('#showMore').click(function(){
   console.log("entrando")
   for(var f = 0; f < countPage; f++){
@@ -370,7 +357,6 @@ $('#showMore').click(function(){
   type: 'GET',
   success: success
 });
-
 }
 });
 
