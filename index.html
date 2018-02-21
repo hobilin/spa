@@ -23,214 +23,202 @@
   </script>
 </head>
 <body>
-    <header class="menu">
-      <nav class="navbar navbar-default navbar-fixed-top  navbar-inverse">
-        <div class="container">
-          <div class="navbar-header brand">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="#"></a>
-          </div>
-          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
-            <ul class="nav navbar-nav navbar-right">
-                <li><a id="home" role="button">Home</a></li>
-              <li><a id="profile" role="button">Profile</a></li>
-              <li class=""><a id="logIn" data-toggle="modal" data-target="#modalLog" role="button">Log In</a></li>
-              <li><a id="register" data-toggle="modal" data-target="#modalRegister" role="button">Register</a></li>
-              <li><a id="logOut" role="button">Log Out</a></li>
-            </ul>
-          </div>
-        </div>
-      </nav>    
-    </header>
-    <section class="preload"></section>
-    <section class="results">
-      <div class="container searchBar">
-        <div class="row">
-          <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-8">
-            <input id="inputSearch" type="text" placeholder="Search By Artist">
-          </div>
-          <div class="row">
-            <div class="col-md-4 col-md-offset-8">
-              <button id="artist" class="btn typeSearch" value="artist">Artist</button>
-              <button id="title" class="btn typeSearch" value="title">Title</button>
-              <button id="period" class="btn typeSearch" value="period">Period</button>
-              <button id="technique" class="btn typeSearch" value="technique">Technique</button>
-            </div>
-          </div>
-        </div>        
-      </div>
-      
+  <header class="menu">
+    <nav class="navbar navbar-default navbar-fixed-top  navbar-inverse">
       <div class="container">
-        <div class="row">
-          <div class="col-md-12 artistContainer">
-            <!-- Agregar contenido de API en elemento con clase item -->
-          </div>
-        </div>        
-      </div>
-      <div class="container-fluid">
-        <div class="row">
-          <div class="text-center footer">
-            <p>Art Gallery© 2017 Copyright</p>
-          </div>
+        <div class="navbar-header brand">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#"></a>
         </div>
-      </div>      
-    </section>
-    <section id="profileContainer">
-        <!--acá va el perfil-->
-    </section>
-<!-- Modal Registro-->
-<div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="text-center">Register</h3>
-      </div>
-      <div class="modal-body">
-        <form class="container-fluid" data-toggle="validator" role="form">
-            <div class="form-group">
-              <div class="row">
-                <div class="row">
-                    <label for="inputEmail" class="control-label">E-mail</label>
-                </div>
-                  <div class="row">
-              <input id="inputEmailReg" class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8" type="email" class="form-control"  aria-describedby="basic-addon2" placeholder="Email" data-error="Please enter a valid mail address. Ex. example@mail.com" required>
-                  </div>
-
-              <div class="row">
-                  <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8 help-block with-errors"></div>
-              </div>
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="row">
-                  <div class="row">
-                      <label for="inputPassword" class="control-label">Password</label>
-                  </div>
-              <div class="row">
-                  <input class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8" type="password" data-minlength="6" class="form-control"  aria-describedby="basic-addon2" id="inputPassReg" placeholder="password" required>
-              </div>
-              <div class="row">
-                  <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8 help-block">Minimun of 6 characters</div>
-              </div>
-              </div>
-            </div>
-            <div class="form-group">
-            <div class="row">
-                <div class="row">
-                      <label for="inputPasswordConfirm" class="control-label">Confirm Password</label>
-                  </div>
-                <div class="row">
-                    <input class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8" type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassReg" data-match-error="Oops, passwords don't match." data-error="Fill out this field" placeholder="confirm password" required>
-                </div>
-            <div class="row">
-                <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8 help-block with-errors"></div>
-            </div>
-            </div>
-          </div>
-
-        <div class="form-group">
-          <button id="register-btn" type="submit" class=" mb-1 btn btn-primary col-md-offset-3 col-lg-offset-3 col-md-6 col-lg-6 col-sm-offset-2 col-xs-offset-2 col-sm-8 col-xs-8 btn-registro">Submit</button>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">      
+          <ul class="nav navbar-nav navbar-right">
+            <li><a id="home" role="button">Home</a></li>
+            <li><a id="profile" role="button">Profile</a></li>
+            <li class=""><a id="logIn" data-toggle="modal" data-target="#modalLog" role="button">Log In</a></li>
+            <li><a id="register" data-toggle="modal" data-target="#modalRegister" role="button">Register</a></li>
+            <li><a id="logOut" role="button">Log Out</a></li>
+          </ul>
         </div>
-        </form>
-
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
       </div>
-    </div>
-          </div>
-  </div>
-</div>
-  <!-- Modal Log In -->
-<div class="modal fade" id="modalLog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h3 class="text-center">Log In</h3>
-      </div>
-      <div class="modal-body">
-        <form data-toggle="validator" role="form">
-     <div class="row">
-          <div class="form-group">
-        <div class="row">
-          <label for="inputEmail" class="control-label">E-mail</label>
-        </div>
-        <div class="row">
-            <input id="inputEmailLog" class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8 " type="email" class="form-control"  aria-describedby="basic-addon2" placeholder="E-mail" data-error="Please enter a valid mail address. Ex. example@mail.com" required>
-        </div>
-        <div class="row">
-                <div class="help-block with-errors"></div>
-            </div>
-      </div>
-     </div>
+    </nav>    
+  </header>
+  <section class="preload"></section>
+  <section class="results">
+    <div class="container searchBar">
       <div class="row">
-          <div class="form-group">
-        <div class="row">
-        <label for="inputPassword" class="control-label">Password</label>
+        <div class="col-md-offset-4 col-md-8 col-lg-offset-4 col-lg-8">
+          <input id="inputSearch" type="text" placeholder="Search By Artist">
         </div>
         <div class="row">
-            <div class="row">
-                <input class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8" type="password" data-minlength="6" class="form-control" aria-describedby="basic-addon2" id="inputPassLog" placeholder="password" required>
-            </div>
-            <div class="row">
-                <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 help-block">Minimun of 6 characters</div>
-            </div>
+          <div class="col-md-4 col-md-offset-8 col-xs-12 text-center">
+            <button id="artist" class="btn typeSearch" value="artist">Artist</button>
+            <button id="title" class="btn typeSearch" value="title">Title</button>
+            <button id="period" class="btn typeSearch" value="period">Period</button>
+            <button id="technique" class="btn typeSearch" value="technique">Technique</button>
+          </div>
         </div>
+      </div>        
+    </div> <!-- /container searchBar -->
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 artistContainer">
+          <!-- Agregar contenido de API en elemento con clase item -->
+        </div>
+      </div>        
+    </div> <!-- /container -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="text-center footer">
+          <p>Art Gallery© 2017 Copyright</p>
+        </div>
+      </div>
+    </div> <!-- /container -->     
+  </section>
+  <section id="profileContainer">
+    <!--acá va el perfil-->
+  </section>
+
+  <!-- Modal Registro-->
+  <div class="modal fade" id="modalRegister" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h3 class="text-center">Register</h3>
+        </div>
+        <div class="modal-body">
+          <form class="container-fluid" data-toggle="validator" role="form">
+            <div class="form-group">
+              <div class="row">
                 <div class="row">
-        <a class="col-xs-offset-2 col-sm-offset-2 col-md-offset-3 col-lg-offset-3 col-sm-8 col-xs-8 col-lg-8 col-md-8" id="forgotPass" href="">Forgot password? Click here!</a>
+                  <label for="inputEmail" class="control-label">E-mail</label>
+                </div>
+                <div class="row">
+                  <input id="inputEmailReg" class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8" type="email" class="form-control"  aria-describedby="basic-addon2" placeholder="Email" data-error="Please enter a valid mail address. Ex. example@mail.com" required>
+                </div>
+                <div class="row">
+                    <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8 help-block with-errors"></div>
+                </div>
+              </div> <!-- /row -->
+            </div> <!-- /form-group -->
+            <div class="form-group">
+              <div class="row">
+                <div class="row">
+                  <label for="inputPassword" class="control-label">Password</label>
+                </div>
+                <div class="row">
+                  <input class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8" type="password" data-minlength="6" class="form-control"  aria-describedby="basic-addon2" id="inputPassReg" placeholder="password" required>
+                </div>
+                <div class="row">
+                  <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8 help-block">Minimun of 6 characters</div>
+                </div>
+              </div>
+            </div> <!-- /form-group -->
+            <div class="form-group">
+              <div class="row">
+                <div class="row">
+                  <label for="inputPasswordConfirm" class="control-label">Confirm Password</label>
+                </div>
+                <div class="row">
+                  <input class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8" type="password" class="form-control" id="inputPasswordConfirm" data-match="#inputPassReg" data-match-error="Oops, passwords don't match." data-error="Fill out this field" placeholder="confirm password" required>
+                </div>
+                <div class="row">
+                  <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8 help-block with-errors"></div>
+                </div>
+              </div>
+            </div> <!-- /form-group -->
+            <div class="form-group">
+              <button id="register-btn" type="submit" class=" mb-1 btn btn-primary col-md-offset-3 col-lg-offset-3 col-md-6 col-lg-6 col-sm-offset-2 col-xs-offset-2 col-sm-8 col-xs-8 btn-registro">Submit</button>
+            </div>
+          </form>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div> <!-- /modal-body -->
+      </div> <!-- /modal-content -->
+    </div> <!-- /modal-dialog -->
+  </div><!-- /modal fade - fin modal de registro -->
+
+  <!-- Modal Log In -->
+  <div class="modal fade" id="modalLog" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h3 class="text-center">Log In</h3>
         </div>
-      </div>
-      </div>
-
-    <div class="row">
-        <div class="form-group">
-      <button id="log-btn" type="submit" class="btn btn-primary col-xs-offset-4 col-sm-offset-4 col-sm-4 col-xs-4 btn-ingreso">Log In</button>
-    </div>
-    </div>
-    </form>
-      
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-    </div>
-  </div>
-  </div>
-
-
+        <div class="modal-body">
+          <form data-toggle="validator" role="form">
+            <div class="row">
+              <div class="form-group">
+                <div class="row">
+                  <label for="inputEmail" class="control-label">E-mail</label>
+                </div>
+                <div class="row">
+                  <input id="inputEmailLog" class="col-xs-offset-1 col-sm-offset-1 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8 " type="email" class="form-control"  aria-describedby="basic-addon2" placeholder="E-mail" data-error="Please enter a valid mail address. Ex. example@mail.com" required>
+                </div>
+                <div class="row">
+                  <div class="help-block with-errors"></div>
+                </div>
+              </div> <!-- /form-group -->
+            </div> <!-- /row -->
+            <div class="row">
+              <div class="form-group">
+                <div class="row">
+                  <label for="inputPassword" class="control-label">Password</label>
+                </div>
+                <div class="row">
+                  <div class="row">
+                    <input class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 col-sm-8 col-xs-8 col-lg-8 col-md-8" type="password" data-minlength="6" class="form-control" aria-describedby="basic-addon2" id="inputPassLog" placeholder="password" required>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 help-block">Minimun of 6 characters</div>
+                  </div>
+                </div>
+                <div class="row">
+                  <a class="col-xs-offset-2 col-sm-offset-2 col-md-offset-3 col-lg-offset-3 col-sm-8 col-xs-8 col-lg-8 col-md-8" id="forgotPass" href="">Forgot password? Click here!</a>
+                </div>
+              </div> <!-- /form-group -->
+            </div> <!-- /row -->
+            <div class="row">
+              <div class="form-group">
+                <button id="log-btn" type="submit" class="btn btn-primary col-xs-offset-4 col-sm-offset-4 col-sm-4 col-xs-4 btn-ingreso">Log In</button>
+              </div>
+            </div>
+          </form>      
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div> <!-- /modal-body -->
+      </div> <!-- /modal-content -->
+    </div> <!-- /modal-dialog -->
+  </div> <!-- /modal fade -->
 
   <!-- Modal individual-->
-<div id="modal-item" class="modal fade" role="dialog">
-  <div class="modal-dialog">
+  <div id="modal-item" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body-items">
+          <iframe src=""></iframe>       
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div> <!-- /modal-content -->
+    </div> <!-- /modal-dialog -->
+  </div> <!-- /modal-item -->
 
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-body-items">
-        <iframe src=""></iframe>       
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-      </div>
-    </div>
-
-  </div>
-
-
-
-<!--script-->
-<script src="assets/JQuery/jquery-3.2.1.min.js"></script>
-<script src="assets/Bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
-<script src="assets/js/validate.min.js"></script>
-<script src="assets/js/app.js"></script>
-
-
-
+<!-- script -->
+  <script src="assets/JQuery/jquery-3.2.1.min.js"></script>
+  <script src="assets/Bootstrap/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+  <script src="assets/js/validate.min.js"></script>
+  <script src="assets/js/app.js"></script>
 </body>
 </html>
 
