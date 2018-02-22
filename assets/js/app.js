@@ -1,8 +1,8 @@
 $(document).ready(function() {
 
-    for (var f = 0; f < 10; f++) {
+    for (var f = 0; f < 8; f++) {
         $.ajax({
-            url: `https://api.harvardartmuseums.org/object?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
+            url: `https://api.harvardartmuseums.org/object?size=100&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae&page=${f}`, //942
             type: 'GET',
             success: success
         });
@@ -125,7 +125,7 @@ function observardor() {
                     var idbm = childData.id;
 
                     
-                    $(".artwork").append(`<div class="item thumbnail" id="${idbm}" technique-id="${techniquebm}" period-id="${periodbm}" people-id="${artistbm}" title-id="${titlebm}">
+                    $(".collection").append(`<div class="artwork thumbnail" id="${idbm}" technique-id="${techniquebm}" period-id="${periodbm}" people-id="${artistbm}" title-id="${titlebm}">
                                     <img class="image" src="${imagebm}"><div class="caption"><h3>${artistbm}</h3><p>Date: ${datedbm}</p>
                                     <p>Title: ${titlebm}</p><p>Period: ${periodbm}</p><p>Technique: ${techniquebm}</p><div><p class="card-text">
                                     </p></div></div></div>`);
@@ -208,7 +208,7 @@ function success(data) {
         var dimensions = el.dimensions;
         var contact = el.contact;
         var classification = el.classification;
-        if (image !== null && image !== undefined) {
+        if (image !== null && image !== undefined && people !== null && people !== undefined) {
 
             $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}">
                                     <img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p>
