@@ -74,6 +74,10 @@ input::placeholder{
   font-size: 1.5em;
 }
 
+.saved {
+  color: #000;
+}
+
 .image:hover{
   cursor: pointer; 
 }

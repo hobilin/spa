@@ -172,24 +172,57 @@ function success(data) {
     var dimensions = el.dimensions;
     var contact = el.contact; 
     var classification = el.classification;
-
     if (image !== null && image !== undefined) {
 
       $('.artistContainer').append(`<div class="item thumbnail" id="${objectId}" technique-id="${idTechnique}" period-id="${idPeriod}" people-id="${idPeople}" title-id="${el.title}">
                                     <img class="image" src="${image}"><div class="caption"><h3>${people}</h3><p>Date: ${date}</p>
                                     <p>Title: ${title}</p><p>Period: ${period}</p><p>Technique: ${technique}</p><div><p class="card-text">
-                                    <i id="bookmark" class="glyphicon glyphicon-bookmark"></i><i id="heart" class="glyphicon glyphicon-heart"></i></p>
-                                    </div></div></div>`);
+                                    </p></div><i id="bookmark" idCard="${objectId}" class="glyphicon glyphicon-bookmark"></i></div></div>`);
     }
-    
+
+
+    $('i').click(function(e) {
+              e.stopImmediatePropagation();
+              var idThis = $(this).attr('idCard');
+          if($(this).attr('idCard') === $(this).parent().parent().attr('id')){
+            if($(this).hasClass('saved')){
+          $(this).removeClass('saved');
+        } else {
+          $(this).addClass('saved');
+          fetch(`https://api.harvardartmuseums.org/object/${objectId}?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae`).then((response) => response.json())
+          .then( data => {
+            console.log(data)
+         var database = firebase.database();
+          var users = database.ref().child('users');
+          var currentUser = users.child(firebase.auth().currentUser.uid);
+          var bookmark = currentUser.child("bookmark"); //#userName.val() del form de registro
+          var data = {
+            image: data.primaryimageurl,
+            title: data.title,
+            artist: data.people[0].displayname,
+            period: data.period,
+            dated: data.dated,
+            technique: data.technique,
+            id: idThis
+          }
+          bookmark.push(data);
+
+          })
+        
+          
+        }
+          }
+        })
     // Inicio Contenido modal individual
     $('.item').click(function(event) {
       event.stopImmediatePropagation();
       $(".modal-body-items").empty(); 
+      $(".modal-footer").empty();
       $('#modal-item').modal('show');
       var catchid = $(this).attr('id');
       if (catchid == objectId) {
-        $(".modal-title").html(`${title} // ${date}`)
+        $(".modal-title").html(`${title} // ${date}`);
+        $(".modal-footer").append(`<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>`);
         $(".modal-body-items").append(`<div class="row cont-img col-xs-11 col-md-12">
             <img id="pictureModal" src="${image}" alt="img-piece">  
           </div>
@@ -222,8 +255,10 @@ function success(data) {
               <p class="text-left">${contact}</p>
             </div>
           </div>`) 
-      }
+
+}
     }); // fin funcion click en item
+
   }); // fin funcion forEach
 } // fin funcion success
 
@@ -321,6 +356,8 @@ $('.typeSearch').click(function() {
 }) // fin funcion typeSearch
 //FIN FILTRO BUSQUEDA
 
+
+
 $('#showMore').click(function() {
   console.log("entrando")
   for (var f = 0; f < countPage; f++) {
@@ -406,3 +443,39 @@ function gotDataSave(data) {
                                   '</div></div></div></div>');
    };
 */
+/*
+            $('i').click(function(e) {
+              e.stopImmediatePropagation();
+          var catchid = $('.item').attr('id');
+          if($(this).attr('idCard') === catchid){
+            if($(this).hasClass('saved')){
+          $(this).removeClass('saved');
+        } else {
+          $(this).addClass('saved');
+          setTimeout(function(){ $(this).fadeOut(); }, 500);
+          $.ajax({
+      url : `https://api.harvardartmuseums.org/${catchid}?&apikey=69c73150-15c6-11e8-a8c0-e776cdb40eae`, //942
+      type: 'GET',
+      success: function() {
+         var database = firebase.database();
+          var users = database.ref().child('users');
+          var currentUser = users.child(firebase.auth().currentUser.uid);
+          var bookmark = currentUser.child("bookmark"); //#userName.val() del form de registro
+          var data = {
+            image: el.primaryimageurl,
+            title: el.title,
+            artist: el.people[0].displayname,
+            period: el.period,
+            dated: el.dated,
+            technique: el.technique,
+            id: catchid
+          }
+          bookmark.push(data);
+      }
+    });
+  }
+
+         
+        }
+          
+        })*/
