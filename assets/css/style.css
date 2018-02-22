@@ -198,19 +198,26 @@ form {
 }
 /*Perfil de usuario*/
 
+.infoContainer{
+  margin-top: 5%;
+}
+
 .perfil img{
   border-radius: 50%;
   width: 100%;
+  margin-top: 4vh;
+  margin-bottom: 2vh;
 }
 
 .userName h1{
   font-size: 3em;
-  margin: 6vh 0 4% 4%;
+  margin: 4vh 0 4% 4%;
 }
 
 .userName p{
-  font-size: 1.5em;
+  font-size: 1em;
   margin: 0 0 4% 4%;
+  text-align: justify;
 }
 
 .collection {
@@ -221,7 +228,7 @@ form {
   -webkit-column-gap:1em;
   column-gap: 1em;
   margin: 5px;
-  margin-top: 10vh;
+  margin-top: 2%;
 }
 
 .artwork {
@@ -234,6 +241,6 @@ form {
 }
 
 .collectionTitle {
-  margin-top: 8vh;
+  margin-top: 2%;
 }
 
