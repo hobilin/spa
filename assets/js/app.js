@@ -78,6 +78,8 @@ $("#log-btn").click(function(e) {
         console.log(errorCode);
         console.log(errorCode);
     });
+
+    
 }); // fin funcion click en boton log in
 
 // ver si hay usuario activo
