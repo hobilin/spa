@@ -11,6 +11,7 @@ $(document).ready(function() {
     // Loader
     var preload = $('.preload').append(`<figure><div></div><div></div><div></div><div></div>
                                     <div></div><div></div><div></div><div></div></figure>`)
+
     preload.show();
     splash(6500);
     $('.menu, .results, #profileContainer').hide();
@@ -89,11 +90,14 @@ function observardor() {
             $("#heart").show();
 
             $('#profile').click(function() {
-                $('.results').hide();
-                $('#profileContainer').show();
-                $('#profileContainer').html(`<div class="container-fluid"><div class="row"><div class="col-md-2 col-md-offset-1 perfil">
-    <img src="assets/img/stars.png" alt=""></div><div class="col-md-7 userName">
-    <h1>Este es el nombre de usuario</h1><p></p><p><a href="#">Este es el link al sitio web del usuario</a></p>
+    $('.results').hide();
+    $('#profileContainer').show();
+    $('#profileContainer').html(`<div class="container-fluid"><div class="row infoContainer"><div class="col-md-2 col-sm-3 col-xs-8 col-md-offset-1 col-xs-offset-2 perfil">
+    <img src="assets/img/rembrandt_drawing.jpg" alt=""><p class="text-center"><a href="#">Editar foto</a></div><div class="col-md-7 col-sm-7 col-xs-10 col-xs-offset-1 userName">
+    <h1>Jane Doe</h1><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Temporibus porro officia hic fugit 
+    nihil, rem dolorum inventore nulla, dignissimos aut. Beatae omnis asperiores incidunt, reprehenderit suscipit eligendi? Voluptas facilis 
+    eveniet eius nemo libero, porro inventore molestiae culpa nam veritatis aliquam quos nobis, distinctio soluta natus provident adipisci 
+    fugiat nesciunt. Pariatur.</p><p><a href="#">página web del usuario</a></p>
     </div></div><div class="row"><div class="col-md-12 text-center collectionTitle"><h2>My Collection</h2>
     </div></div><div class="container collection"><div class="artwork"></div></div></div>`);
             })
