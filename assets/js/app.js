@@ -87,9 +87,17 @@ function observardor() {
             $("#profile").show();
             $("#home").show();
             $("#bookmark").show();
-            $("#heart").show();
 
             $('#profile').click(function() {
+              var user = firebase.auth().currentUser;
+/*
+user.updateProfile({
+  photoURL: "https://example.com/jane-q-user/profile.jpg"
+}).then(function() {
+  // Update successful.
+}).catch(function(error) {
+  // An error happened.
+});*/
     $('.results').hide();
     $('#profileContainer').show();
     $('#profileContainer').html(`<div class="container-fluid"><div class="row infoContainer"><div class="col-md-2 col-sm-3 col-xs-8 col-md-offset-1 col-xs-offset-2 perfil">
@@ -121,7 +129,7 @@ function observardor() {
                     var techniquebm = childData.technique;
                     var idbm = childData.id;
 
-                    
+
                     $("#profileContainer").append(`<div class="item thumbnail" id="${idbm}" technique-id="${techniquebm}" period-id="${periodbm}" people-id="${artistbm}" title-id="${titlebm}">
                                     <img class="image" src="${imagebm}"><div class="caption"><h3>${artistbm}</h3><p>Date: ${datedbm}</p>
                                     <p>Title: ${titlebm}</p><p>Period: ${periodbm}</p><p>Technique: ${techniquebm}</p><div><p class="card-text">
@@ -149,7 +157,6 @@ $("#logOut").click(function() {
         $("#home").hide();
         $("#profile").hide();
         $("#bookmark").hide();
-        $("#heart").hide();
         $("#logOut").css('display', 'none');
     });
     firebase.auth().signOut().catch(function(error) {
