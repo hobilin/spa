@@ -40,8 +40,14 @@ $("#register-btn").click(function(e) {
     var passReg = $("#inputPassReg").val();
 
     console.log(emailReg);
-    console.log(passReg);
     console.log("registrado");
+    $(".modal-body-register").empty(); 
+    $(".modal-body-register").append(`<div class="postRegister">
+                                        <h3>Send email verification ... <br> Please check you email</h3>
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                      </div>`)
     firebase.auth().createUserWithEmailAndPassword(emailReg, passReg)
         .then(function() {
             var user = firebase.auth().currentUser;
@@ -65,8 +71,6 @@ $("#log-btn").click(function(e) {
     e.preventDefault();
     var emailLog = $("#inputEmailLog").val();
     var passLog = $("#inputPassLog").val();
-    console.log(passLog);
-    console.log(emailLog);
     firebase.auth().signInWithEmailAndPassword(emailLog, passLog).catch(function(error) {
         // Handle Errors here.
         var errorCode = error.code;
