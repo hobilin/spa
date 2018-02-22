@@ -28,7 +28,7 @@ $(document).ready(function() {
     $("#register").show();
     $("#profile").hide();
     $("#logOut").hide();
-    $("#home").hide();
+    //$("#home").hide();
 
 
 }); // fin document.ready
@@ -108,8 +108,7 @@ user.updateProfile({
     fugiat nesciunt. Pariatur.</p><p><a href="#">página web del usuario</a></p>
     </div></div><div class="row"><div class="col-md-12 text-center collectionTitle"><h2>My Collection</h2>
     </div></div><div class="container collection"><div class="artwork"></div></div></div>`);
-            })
-            $('#home').click(function() {
+    $('#home').click(function() {
                 $('#profileContainer').hide();
                 $('.results').show();
             })
@@ -129,8 +128,8 @@ user.updateProfile({
                     var techniquebm = childData.technique;
                     var idbm = childData.id;
 
-
-                    $("#profileContainer").append(`<div class="item thumbnail" id="${idbm}" technique-id="${techniquebm}" period-id="${periodbm}" people-id="${artistbm}" title-id="${titlebm}">
+ 
+                    $(".artwork").append(`<div class="item thumbnail" id="${idbm}" technique-id="${techniquebm}" period-id="${periodbm}" people-id="${artistbm}" title-id="${titlebm}">
                                     <img class="image" src="${imagebm}"><div class="caption"><h3>${artistbm}</h3><p>Date: ${datedbm}</p>
                                     <p>Title: ${titlebm}</p><p>Period: ${periodbm}</p><p>Technique: ${techniquebm}</p><div><p class="card-text">
                                     </p></div></div></div>`);
@@ -138,6 +137,9 @@ user.updateProfile({
             }, function(err) {
               console.log(err);
             });
+
+})
+            
 
             // User is signed in.
         } else {
@@ -154,7 +156,7 @@ $("#logOut").click(function() {
     firebase.auth().signOut().then(function() {
         $("#logIn").show();
         $("#register").show();
-        $("#home").hide();
+       // $("#home").hide();
         $("#profile").hide();
         $("#bookmark").hide();
         $("#logOut").css('display', 'none');
