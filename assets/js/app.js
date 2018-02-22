@@ -121,9 +121,8 @@ function observardor() {
                     var techniquebm = childData.technique;
                     var idbm = childData.id;
 
-                    console.log($('#profileContainer').attr('class'))
-
-                    $(".artwork").append(`<div class="item thumbnail" id="${idbm}" technique-id="${techniquebm}" period-id="${periodbm}" people-id="${artistbm}" title-id="${titlebm}">
+                    
+                    $("#profileContainer").append(`<div class="item thumbnail" id="${idbm}" technique-id="${techniquebm}" period-id="${periodbm}" people-id="${artistbm}" title-id="${titlebm}">
                                     <img class="image" src="${imagebm}"><div class="caption"><h3>${artistbm}</h3><p>Date: ${datedbm}</p>
                                     <p>Title: ${titlebm}</p><p>Period: ${periodbm}</p><p>Technique: ${techniquebm}</p><div><p class="card-text">
                                     </p></div></div></div>`);
